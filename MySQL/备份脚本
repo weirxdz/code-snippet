@@ -1,0 +1,9 @@
+rem auther:www.yumi-info.com
+rem date:20171222
+rem ******MySQL backup start********
+@echo off
+forfiles /p "E:\mysql\MySQLBackUp\gbcjcdb" /m gbcjcdb_*.sql -d -30 /c "cmd /c del /f @path"
+set "Ymd=%date:~0,4%%date:~5,2%%date:~8,2%0%time:~1,1%%time:~3,2%%time:~6,2%"
+"C:\Program Files\MySQL\mysql-5.6.39-winx64\mysql-5.6.39-winx64\bin\mysqldump" --opt --single-transaction=TRUE --user=obackup --password=****** --host=127.0.0.1 --protocol=tcp --port=3306 --default-character-set=utf8 --single-transaction=TRUE --routines --events "professionalgbcjcdb" > "E:\mysql\MySQLBackUp\gbcjcdb\gbcjcdb_%Ymd%.sql"
+@echo on
+rem ******MySQL backup end********
