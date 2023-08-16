@@ -410,7 +410,7 @@ where r.FATHERCODE = (select CCODE
 <ColumnPrivilegeControl/>
 <RowPrivilegeControl/>
 <RowHeight defaultValue="723900">
-<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,0,0,0,0,0,0,0,0,0,0,723900]]></RowHeight>
+<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
 <ColumnWidth defaultValue="2743200">
 <![CDATA[2736000,2736000,2095500,5219700,2736000,3600000,2736000,5295900,2743200,2743200,2743200]]></ColumnWidth>
 <CellElementList>
@@ -448,7 +448,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -483,7 +482,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -518,7 +516,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -553,7 +550,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -594,7 +590,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Present class="com.fr.base.present.DictPresent">
 <Dictionary class="com.fr.data.impl.TableDataDictionary">
@@ -640,7 +635,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Present class="com.fr.base.present.DictPresent">
 <Dictionary class="com.fr.data.impl.TableDataDictionary">
@@ -686,7 +680,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Present class="com.fr.base.present.DictPresent">
 <Dictionary class="com.fr.data.impl.TableDataDictionary">
@@ -732,7 +725,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -767,7 +759,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Present class="com.fr.base.present.DictPresent">
 <Dictionary class="com.fr.data.impl.TableDataDictionary">
@@ -889,7 +880,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -924,7 +914,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -959,7 +948,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -994,7 +982,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1188,7 +1175,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="false" textInputMode="1" isSupportManual="true" isSupportScan="false" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="false" showWordCount="false"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1255,7 +1241,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1290,7 +1275,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1325,7 +1309,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="false" textInputMode="1" isSupportManual="true" isSupportScan="false" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="false" showWordCount="false"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1363,7 +1346,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1408,7 +1390,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1437,7 +1418,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1466,7 +1446,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand/>
 </C>
@@ -1489,7 +1468,6 @@ where r.FATHERCODE = (select CCODE
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>

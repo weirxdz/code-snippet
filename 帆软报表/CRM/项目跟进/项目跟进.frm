@@ -27,7 +27,8 @@ LEFT JOIN FR_CRM_DEPT D ON  X.saledeptid = D.ID
 LEFT JOIN FR_CRM_RESELLER R ON X.RESELLERID = R.ID 
 LEFT JOIN FR_CRM_PROJECT_STAGES PS ON  X.project_stagesID = PS.ID 
 LEFT JOIN FR_CRM_USERS U1 ON X.userID = U1.ID 
-WHERE U.ccode = '${fine_username}' AND P.DR = 0 
+WHERE --U.ccode = '${fine_username}' AND 
+P.DR = 0 
 and P.approve_status = 1
 order by P.projectno desc,x.ID]]></Query>
 <PageQuery>
@@ -585,14 +586,7 @@ FR.showDialog(o.title, o.width, o.height, $iframe, o);
 </color>
 </Background>
 <BackgroundOpacity opacity="0.04"/>
-<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3">
-<FineImage fm="png" imageId="__ImageCache__9BDAD1A694F2AE09931BEB5B979DA1F5">
-<IM>
-<![CDATA[lO<9(kN.ld@UNU%p%320!n&&RXMhpZ,a0ckg]Ag[)Sh?$H'm#O$mX9@nDg03/<C4dC'hs7\:U
-CrUFIA*cmN+n1!@hUKFS0]AXkEO<r!!~
-]]></IM>
-</FineImage>
-</InsetImage>
+<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3"/>
 </WidgetTitle>
 <Background name="ColorBackground">
 <color>

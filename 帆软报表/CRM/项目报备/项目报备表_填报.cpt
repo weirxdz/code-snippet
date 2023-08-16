@@ -393,7 +393,7 @@ group by t.ResellerID]]></Query>
 <ColumnPrivilegeControl/>
 <RowPrivilegeControl/>
 <RowHeight defaultValue="723900">
-<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,0,0,0,1219200,1440000,0,0,0,0,0,723900]]></RowHeight>
+<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,723900,723900,723900,1219200,1440000,723900,723900,723900,723900,723900,723900]]></RowHeight>
 <ColumnWidth defaultValue="2743200">
 <![CDATA[2736000,2736000,2880000,4320000,2736000,3600000,2880000,4533900,2743200,2743200,2743200]]></ColumnWidth>
 <CellElementList>
@@ -1919,7 +1919,7 @@ setTimeout(function () {
 </SubmitVisitor>
 <SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
 <Name>
-<![CDATA[审批流_部门负责人_非待办]]></Name>
+<![CDATA[审批流_部门负责人_暂存]]></Name>
 <Attributes dsName="CRM"/>
 <DMLConfig class="com.fr.write.config.IntelliDMLConfig">
 <Table schema="dbo" name="FR_CRM_APPROVAL_PROCESS"/>
@@ -1966,7 +1966,7 @@ setTimeout(function () {
 </ColumnConfig>
 <Condition class="com.fr.data.condition.FormulaCondition">
 <Formula>
-<![CDATA[REVERSE(ISNULL(C14))]]></Formula>
+<![CDATA[E22<1]]></Formula>
 </Condition>
 </DMLConfig>
 </SubmitVisitor>
@@ -2019,7 +2019,7 @@ setTimeout(function () {
 </ColumnConfig>
 <Condition class="com.fr.data.condition.FormulaCondition">
 <Formula>
-<![CDATA[ISNULL(C14)]]></Formula>
+<![CDATA[E22>=1]]></Formula>
 </Condition>
 </DMLConfig>
 </SubmitVisitor>

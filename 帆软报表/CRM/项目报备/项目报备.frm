@@ -70,7 +70,7 @@ left join FR_CRM_DEPT d on  t.SaleDeptID = d.ID
 LEFT JOIN FR_CRM_RESELLER c on  t.ResellerID = c.ID 
 left join FR_CRM_APPROVAL_PROCESS p on t.Billcode = p.billcode -- and u.ID = p.userID 
 inner join FR_CRM_USERS u on  p.userID  = u.ID 
-where 1 =1 and p.nodestatus = 3 
+where 1 =1 -- and p.nodestatus = 3 
 	and u.ccode = '${fine_username}'
 ${if(len(startdate) == 0,"","and t.Billdate >= '" +  startdate +  "'")} 
 ${if(len(enddate) == 0,"","and t.Billdate <= '" +  enddate +  "'")}]]></Query>
@@ -1021,14 +1021,7 @@ H+YU(_/,%bs,E(`jL-:^2%9k.:>8`_Hf"a,q&_Q`r\j~
 </color>
 </Background>
 <BackgroundOpacity opacity="0.04"/>
-<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3">
-<FineImage fm="png" imageId="__ImageCache__9BDAD1A694F2AE09931BEB5B979DA1F5">
-<IM>
-<![CDATA[lO<9(kN.ld@UNU%p%320!n&&RXMhpZ,a0ckg]Ag[)Sh?$H'm#O$mX9@nDg03/<C4dC'hs7\:U
-CrUFIA*cmN+n1!@hUKFS0]AXkEO<r!!~
-]]></IM>
-</FineImage>
-</InsetImage>
+<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3"/>
 </WidgetTitle>
 <Background name="ColorBackground">
 <color>
@@ -1581,14 +1574,7 @@ W`>sXrPmai)h6mdr/JJ]A2u^hSp`"_CDu>U0nMgGsM@ZM)Pih[>ZA4r83hj>sNR"P(G?8"i#1
 </color>
 </Background>
 <BackgroundOpacity opacity="0.04"/>
-<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3">
-<FineImage fm="png" imageId="__ImageCache__9BDAD1A694F2AE09931BEB5B979DA1F5">
-<IM>
-<![CDATA[lO<9(kN.ld@UNU%p%320!n&&RXMhpZ,a0ckg]Ag[)Sh?$H'm#O$mX9@nDg03/<C4dC'hs7\:U
-CrUFIA*cmN+n1!@hUKFS0]AXkEO<r!!~
-]]></IM>
-</FineImage>
-</InsetImage>
+<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3"/>
 </WidgetTitle>
 <Background name="ColorBackground">
 <color>

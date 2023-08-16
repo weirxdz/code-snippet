@@ -1,0 +1,1 @@
+IF(C23 = '酒坛', CONCATENATE(FORMAT(C18, "yyyyMMdd"), format(if(len(SQL("RDS", "select MAX(right(B.CBATCH,3)) from fr_rw_jars_balance_b B where B.CBATCH like  '" + format(C18, "yyyyMMdd") + "%'", 1, 1)) = 0, "001", SQL("RDS", "select MAX(right(B.CBATCH,3)) from fr_rw_jars_balance_b B where B.CBATCH like  '" + format(C18, "yyyyMMdd") + "%'", 1, 1) + 1), "000")), '')

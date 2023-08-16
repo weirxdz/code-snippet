@@ -21,7 +21,8 @@
 <![CDATA[CRM]]></DatabaseName>
 </Connection>
 <Query>
-<![CDATA[select P.projectno 项目编号,p.projectname 项目名称,P.billdate 报备日期,p.proprietorname 业主名称,designinginstitute 设计院名称,estimatedfieldtime 进场时间,coveredarea 建筑面积,pipernnum 风管面积,u.cname 报备人,d.cname 销售部门,r.cname 经销商名称,x.ddate 跟进日期,ps.cname 跟进阶段,x.follewdetails 跟进情况 from FR_CRM_PROJECT_SUBMIT P
+<![CDATA[select P.projectno 项目编号,p.projectname 项目名称,P.billdate 报备日期,p.proprietorname 业主名称,designinginstitute 设计院名称,estimatedfieldtime 进场时间,coveredarea 建筑面积,pipernnum 风管面积,u.cname 报备人,d.cname 销售部门,r.cname 经销商名称,x.ddate 跟进日期,ps.cname 跟进阶段,x.follewdetails 跟进情况 
+from FR_CRM_PROJECT_SUBMIT P
 left join FR_CRM_PROJECT_FOLLOWUP X  on P.PROJECTNO=X.PROJECTNO
 LEFT JOIN FR_CRM_USERS U ON p.UserID = U.ID
  

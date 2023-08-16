@@ -437,7 +437,7 @@ group by t.ResellerID]]></Query>
 <ColumnPrivilegeControl/>
 <RowPrivilegeControl/>
 <RowHeight defaultValue="723900">
-<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,0,0,0,1152000,0,0,0,0,0,0,723900]]></RowHeight>
+<![CDATA[1440000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,1152000,3600000,1371600,3600000,723900,723900,723900,1152000,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
 <ColumnWidth defaultValue="2743200">
 <![CDATA[2736000,2736000,2880000,4320000,2736000,3600000,2736000,4876800,2743200,2743200,2743200]]></ColumnWidth>
 <CellElementList>
@@ -475,7 +475,6 @@ group by t.ResellerID]]></Query>
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -510,7 +509,6 @@ group by t.ResellerID]]></Query>
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -545,7 +543,6 @@ group by t.ResellerID]]></Query>
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -788,7 +785,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Present class="com.fr.base.present.DictPresent">
 <Dictionary class="com.fr.data.impl.TableDataDictionary">
@@ -834,7 +830,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1082,7 +1077,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1134,7 +1128,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1186,7 +1179,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1238,7 +1230,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1483,7 +1474,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="false" textInputMode="1" isSupportManual="true" isSupportScan="false" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="false" showWordCount="false"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1588,7 +1578,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1640,7 +1629,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1692,7 +1680,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="false" textInputMode="1" isSupportManual="true" isSupportScan="false" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="false" showWordCount="false"/>
 </Widget>
 <Expand>
 <cellSortAttr>
@@ -1730,7 +1717,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1775,7 +1761,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1804,7 +1789,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1833,7 +1817,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>
@@ -1860,7 +1843,6 @@ else {
 <Reg class="com.fr.form.ui.reg.NoneReg"/>
 <widgetValue/>
 <MobileScanCodeAttr scanCode="true" textInputMode="0" isSupportManual="true" isSupportScan="true" isSupportNFC="false" nfcContentType="0"/>
-<MobileTextEditAttr allowOneClickClear="true"/>
 </Widget>
 <Expand>
 <cellSortAttr/>

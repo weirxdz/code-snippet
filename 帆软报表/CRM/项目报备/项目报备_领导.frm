@@ -70,7 +70,7 @@ left join FR_CRM_DEPT d on  t.SaleDeptID = d.ID
 LEFT JOIN FR_CRM_RESELLER c on  t.ResellerID = c.ID 
 left join FR_CRM_APPROVAL_PROCESS p on t.Billcode = p.billcode -- and u.ID = p.userID 
 inner join FR_CRM_USERS u on  p.userID  = u.ID 
-where 1 =1 and p.nodestatus = 3 
+where 1 =1 -- and p.nodestatus = 3 
 	and u.ccode = '${fine_username}'
 ${if(len(startdate) == 0,"","and t.Billdate >= '" +  startdate +  "'")} 
 ${if(len(enddate) == 0,"","and t.Billdate <= '" +  enddate +  "'")}]]></Query>
@@ -288,7 +288,7 @@ ${if(len(enddate) == 0,"","and t.Billdate <= '" +  enddate +  "'")}]]></Query>
 </Widget>
 <Widget class="com.fr.form.ui.CardSwitchButton">
 <WidgetName name="3112ba51-e708-4370-a827-425c45fb99e5"/>
-<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<WidgetAttr invisible="true" aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
 <MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
 <PrivilegeControl/>
 </WidgetAttr>
@@ -979,14 +979,7 @@ $&3DQ^+F8&Tg0#@re*?HJgJYPt3nI6/]A@:C<"!B_T:?67kjqfWT_)_LC67#n8@cDqR;YGpsj
 </color>
 </Background>
 <BackgroundOpacity opacity="0.04"/>
-<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3">
-<FineImage fm="png" imageId="__ImageCache__9BDAD1A694F2AE09931BEB5B979DA1F5">
-<IM>
-<![CDATA[lO<9(kN.ld@UNU%p%320!n&&RXMhpZ,a0ckg]Ag[)Sh?$H'm#O$mX9@nDg03/<C4dC'hs7\:U
-CrUFIA*cmN+n1!@hUKFS0]AXkEO<r!!~
-]]></IM>
-</FineImage>
-</InsetImage>
+<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3"/>
 </WidgetTitle>
 <Background name="ColorBackground">
 <color>
@@ -1455,7 +1448,7 @@ ZbLQKB%K&[_M72'Yb1U9Dj817C=77nn[\(=flTOS$Qn"nf=2AF%G(=UgPeMKlfP':UaAb`"(
 </Widget>
 <Widget class="com.fr.form.ui.container.cardlayout.WTabFitLayout">
 <WidgetName name="Tab20"/>
-<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<WidgetAttr invisible="true" aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
 <MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
 <PrivilegeControl/>
 </WidgetAttr>
@@ -1523,14 +1516,7 @@ ZbLQKB%K&[_M72'Yb1U9Dj817C=77nn[\(=flTOS$Qn"nf=2AF%G(=UgPeMKlfP':UaAb`"(
 </color>
 </Background>
 <BackgroundOpacity opacity="0.04"/>
-<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3">
-<FineImage fm="png" imageId="__ImageCache__9BDAD1A694F2AE09931BEB5B979DA1F5">
-<IM>
-<![CDATA[lO<9(kN.ld@UNU%p%320!n&&RXMhpZ,a0ckg]Ag[)Sh?$H'm#O$mX9@nDg03/<C4dC'hs7\:U
-CrUFIA*cmN+n1!@hUKFS0]AXkEO<r!!~
-]]></IM>
-</FineImage>
-</InsetImage>
+<InsetImage padding="4" insetRelativeTextLeft="true" insetRelativeTextRight="false" name="ImageBackground" layout="3"/>
 </WidgetTitle>
 <Background name="ColorBackground">
 <color>
