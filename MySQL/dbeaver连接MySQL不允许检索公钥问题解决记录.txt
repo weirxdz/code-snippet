@@ -1,0 +1,2 @@
+-- dbeaver数据库连接MySQL 不允许检索公钥问题解决记录
+fr_dw_rds?allowPublicKeyRetrieval=true
