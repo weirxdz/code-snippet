@@ -129,13 +129,13 @@ begin
           if  t_isQuarter = '1001B310000000026FZB'        then /*季度合同的订单*/
             -- 吨价差 = 售价 - 裸品成本 - 包装成本 - 托盘成本 - 预估吨运费 - 预估回桶吨运费 - 制造费用 - 海运费 - 港杂空运费 - 目标利润
             t_diff         := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost_quarter -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - t_burden - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - t_profit_t * t_tax_factor ;
-            t_gross_profit := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost_quarter -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 ;
+            t_gross_profit := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost_quarter -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - t_burden - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 ;
             t_gross_profit_rate := round( t_gross_profit / (:new.nprice * t_unitflag * (1 - t_fbuysellflag)),3);
             :new.prodcost  := t_prod_cost_quarter;
           elsif t_isQuarter <> '1001B310000000026FZB'   then /*不是季度合同的订单*/
             -- 吨价差 = 售价 - 裸品成本 - 包装成本 - 托盘成本 - 预估吨运费 - 预估回桶吨运费 - 制造费用 - 海运费 - 港杂空运费 - 目标利润
             t_diff := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - t_burden - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - t_profit_t * t_tax_factor ;
-            t_gross_profit := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 ;
+            t_gross_profit := :new.nprice * t_unitflag * (1 - t_fbuysellflag)- t_prod_cost -  c_packing_cost - c_pallet_cost - :new.vbdef6 - :new.vbdef7 - t_burden - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 ;
             t_gross_profit_rate := round( t_gross_profit / (:new.nprice * t_unitflag * (1 - t_fbuysellflag)),3);
             :new.prodcost  := t_prod_cost;
           end if;
