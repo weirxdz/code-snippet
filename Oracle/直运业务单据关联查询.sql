@@ -5,6 +5,7 @@ left join ic_saleout_h h on b.cgeneralhid = h.cgeneralhid and nvl(h.dr,0) = 0
 left join po_order_b po_order_b on so_saleorder_b.csaleorderbid = po_order_b.csourcebid and nvl( po_order_b.dr,0) = 0 
 left join ic_purchasein_b pb on po_order_b.pk_order_b = pb.cfirstbillbid and nvl(pb.dr,0) = 0
 where nvl( so_saleorder_b.dr,0) = 0  and po_order_b.pk_order is not null
+order by so_saleorder_b.dbilldate
 
 ;
 select h.vbillcode 
