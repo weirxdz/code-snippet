@@ -52,6 +52,8 @@ begin
     select so_saleorder.vdef1                        into t_sfst from so_saleorder      where so_saleorder.csaleorderid = :new.csaleorderid;
     select so_saleorder.vdef6                        into t_sftp from so_saleorder      where so_saleorder.csaleorderid = :new.csaleorderid;
     select so_saleorder.vdef16                       into t_isQuarter from so_saleorder      where so_saleorder.csaleorderid = :new.csaleorderid;
+      -- 如果vbdef17 处填写的值为 0 ，重置为 '~'
+      if :NEW.vbdef17 <>'~' and to_number(nvl(:NEW.vbdef17,0)) = 0 then :new.vbdef17 := '~'; end if;
       if :new.vbdef18 = '~' then :new.vbdef18 := 0; end if;
       if :new.vbdef19 = '~' then :new.vbdef19 := 0; end if;
       if :NEW.cunitid = '0001Z0100000000000XK'  then-- 主单位为吨
@@ -66,11 +68,11 @@ begin
         t_fbuysellflag := nvl(t_exp_tax,0.00);
         t_profit_t     := to_number(nvl(t_export_profit_t,0));
       end if;
-      if t_isaudit = 'N' and (:NEW.vbdef17 = '~' or :NEW.vbdef17 = 0) THEN-- 采购价处有值即判定为OEM,不审核的物料,不审核的非OEM物料
+      if t_isaudit = 'N' AND :NEW.vbdef17 = '~'  THEN-- 采购价处有值即判定为OEM;只有采购价没有填写的不审核的物料（包括不审核的非OEM物料）才直接置vbdef16 为N
       :NEW.vbdef16 := 'N';
       :NEW.vbdef11 :=0;
       end if;
-      if :NEW.vbdef17 <>'~' and :NEW.vbdef17 > 0  then-- 采购单价处填写的有值，包括OEM业务和直运业务，此处不管物料是否控制销售价格，都进行判断
+      if :NEW.vbdef17 <>'~'  then-- 采购单价处填写的有值，包括OEM业务和直运业务，此处不管物料是否控制销售价格，都进行判断
         if :NEW.ntaxprice <> :new.nprice then -- 国内销售
           -- 吨价差 = 售价-海运费-港杂空运-采购价
           t_diff :=  :NEW.nprice * t_unitflag - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - :NEW.vbdef17 * t_unitflag * t_tax_factor;
