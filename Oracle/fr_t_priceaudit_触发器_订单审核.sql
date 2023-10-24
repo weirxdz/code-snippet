@@ -35,6 +35,7 @@ begin
     or :new.pk_org = '0001B31000000001VU4Q'-- 国际业务部
     or :new.pk_org = '0001B3100000000028GZ'-- 国内业务部
     or :new.pk_org = '0001B3100000000028GW'-- 保龄宝本部
+    or :new.pk_org = '0001B31000000048Q71R'-- 保龄宝国际
     then --筛选销售组织
     t_tax_factor := 0.884955752;
     select nvl(bd_material.code,'')                  into t_code             from bd_material       where bd_material.pk_material = :new.cmaterialid ;
@@ -162,3 +163,4 @@ begin
       end if;
   end if;
 end;
+/
