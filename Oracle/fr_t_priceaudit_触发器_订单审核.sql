@@ -74,20 +74,23 @@ begin
       :NEW.vbdef11 :=0;
       end if;
       if :NEW.vbdef17 <>'~'  then-- 采购单价处填写的有值，包括OEM业务和直运业务，此处不管物料是否控制销售价格，都进行判断
+        if :new.vbdef6 = '~' then :new.vbdef6 := 0; end if;
         if :NEW.ntaxprice <> :new.nprice then -- 国内销售
-          -- 吨价差 = 售价-海运费-港杂空运-采购价
-          t_diff :=  :NEW.nprice * t_unitflag - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - :NEW.vbdef17 * t_unitflag * t_tax_factor;
+          -- 吨价差 = 售价-预估吨运费-海运费-港杂空运-采购价
+          t_diff :=  :NEW.nprice * t_unitflag - :new.vbdef6 - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - :NEW.vbdef17 * t_unitflag * t_tax_factor;
           t_gross_profit_rate := round( t_diff / (:NEW.nprice * t_unitflag),3);
         elsif :NEW.ntaxprice = :new.nprice then-- 出口
-          -- 吨价差 = 售价-海运费-港杂空运-采购价
-          t_diff := :NEW.nprice * t_unitflag * (1 - t_exp_tax) - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - :NEW.vbdef17 * t_unitflag * t_tax_factor ;
+          -- 吨价差 = 售价-预估吨运费-海运费-港杂空运-采购价
+          t_diff := :NEW.nprice * t_unitflag * (1 - t_exp_tax) - :new.vbdef6 - round(t_unitflag * :new.vbdef18 * :new.nexchangerate / :new.nnum,4) - :new.vbdef19 - :NEW.vbdef17 * t_unitflag * t_tax_factor ;
           t_gross_profit_rate := round( t_diff / (:NEW.nprice * t_unitflag* (1 - t_exp_tax)),3);-- 毛利率
         end if;
         :NEW.vdef22 := t_gross_profit_rate; -- 毛利率
         :NEW.vbdef11 := t_diff ;
         :NEW.vdef21 := ROUND(t_diff * :NEW.NNUM / t_unitflag,2) ;-- 毛利
         
-        if t_gross_profit_rate < 0.06 then-- 毛利率低于0.06
+        if t_gross_profit_rate < 0 then -- 毛利率小于零
+          :NEW.vbdef16 := 'AA';  
+        elsif t_gross_profit_rate >=0 and t_gross_profit_rate <0.06 then-- 毛利率低于0.06
           :NEW.vbdef16 := 'A';          
         elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
               :NEW.vbdef16 := 'N';
@@ -105,7 +108,9 @@ begin
           :NEW.vdef22 := t_gross_profit_rate; -- 毛利率
           :NEW.vbdef11 := t_diff ;
           :NEW.vdef21 := ROUND(t_diff * :NEW.NNUM / t_unitflag,2);-- 毛利
-          if t_gross_profit_rate < 0.06 then-- 毛利率低于0.06
+          if t_gross_profit_rate < 0 then
+            :NEW.vbdef16 := 'AA';
+          elsif t_gross_profit_rate >=0 and t_gross_profit_rate < 0.06 then-- 毛利率低于0.06
             :NEW.vbdef16 := 'A';
           elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
             :NEW.vbdef16 := 'N';
@@ -146,7 +151,9 @@ begin
           :NEW.vbdef11 := t_diff ;
           :NEW.vdef21 := ROUND(t_gross_profit * :NEW.NNUM / t_unitflag,2);
           :NEW.vdef22 := t_gross_profit_rate ;
-          if t_gross_profit_rate < 0.06 then
+          if t_gross_profit_rate < 0 then 
+            :NEW.vbdef16 := 'AA';
+          elsif t_gross_profit_rate >= 0 and t_gross_profit_rate < 0.06 then
             :NEW.vbdef16 := 'A';
           elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
             if  t_diff >0 then -- 不审核
@@ -163,4 +170,3 @@ begin
       end if;
   end if;
 end;
-/
