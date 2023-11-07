@@ -90,9 +90,9 @@ begin
         
         if t_gross_profit_rate < 0 then -- 毛利率小于零
           :NEW.vbdef16 := 'AA';  
-        elsif t_gross_profit_rate >=0 and t_gross_profit_rate <0.06 then-- 毛利率低于0.06
+        elsif t_gross_profit_rate >= 0 and t_gross_profit_rate <= 0.06 then
           :NEW.vbdef16 := 'A';          
-        elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
+        elsif t_gross_profit_rate > 0.06 then 
               :NEW.vbdef16 := 'N';
         end if;
         :new.prodcost  := :NEW.vbdef17 * t_unitflag * t_tax_factor;
@@ -110,9 +110,9 @@ begin
           :NEW.vdef21 := ROUND(t_diff * :NEW.NNUM / t_unitflag,2);-- 毛利
           if t_gross_profit_rate < 0 then
             :NEW.vbdef16 := 'AA';
-          elsif t_gross_profit_rate >=0 and t_gross_profit_rate < 0.06 then-- 毛利率低于0.06
+          elsif t_gross_profit_rate >= 0 and t_gross_profit_rate <= 0.06 then
             :NEW.vbdef16 := 'A';
-          elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
+          elsif t_gross_profit_rate > 0.06 then 
             :NEW.vbdef16 := 'N';
           end if;
           :new.prodcost  := t_ex_factory_price * t_tax_factor;
@@ -153,9 +153,9 @@ begin
           :NEW.vdef22 := t_gross_profit_rate ;
           if t_gross_profit_rate < 0 then 
             :NEW.vbdef16 := 'AA';
-          elsif t_gross_profit_rate >= 0 and t_gross_profit_rate < 0.06 then
+          elsif t_gross_profit_rate >= 0 and t_gross_profit_rate <= 0.06 then
             :NEW.vbdef16 := 'A';
-          elsif t_gross_profit_rate >= 0.06 then -- 毛利率不低于0.06
+          elsif t_gross_profit_rate > 0.06 then -- 毛利率高于0.06
             if  t_diff >0 then -- 不审核
                 :NEW.vbdef16 := 'N';
             elsif t_diff <= 0 and t_diff + 0.5 * t_profit_t*t_tax_factor > 0 then  -- 总监审核
