@@ -9,12 +9,11 @@ select -- 销售订单信息
  -- 内部结算信息-blb应收
  tb.vbillcode 内部交易单号, substr(tb.dbilldate, 1, 10) 内部结算日期, tb_fi_org.name 内部结算财务组织, ct5.name 内部结算组织本币, ct6.name 结算币种, tb.nnumber 结算应收数量, tb.nmny 结算应收本币无税金额, tb.nprice 结算应收本币无税单价, tb.ntaxmny 结算应收本币价税合计, tb.ntaxprice 结算应收本币含税单价, recitem.billdate 内部应收日期, recitem.billno 内部应收单号, recitem.local_money_bal 内部应收本币余额, recitem.local_money_de 内部应收本币价税合计, recitem.local_notax_de 内部应收本币无税金额, recitem.local_price 内部应收本币无税单价, recitem.local_taxprice 内部应收本币含税单价, recitem.money_bal 内部应收原币余额, recitem.money_de 内部应收原币价税合计, recitem.notax_de 内部应收原币无税金额, recitem.pk_recbill 内部应收主键, recitem.pk_recitem 内部应收行主键, recitem.price 内部应收原币无税单价, recitem.taxprice 内部应收原币含税单价,
  -- 内部结算信息-blb成本
- ijb.cbill_bid, ijb.cbillid, ijh.vbillcode 调拨出库单号, substr(ijh.dbilldate, 1, 10) 调拨出库日期,ijb.nnum 内部调出数量, ijb.nprice 内部调出成本, ijb.nmny 内部调出金额
--- , 
+ ijb.cbill_bid, ijb.cbillid, ijh.vbillcode 调拨出库单号, substr(ijh.dbilldate, 1, 10) 调拨出库日期,ijb.nnum 内部调出数量, ijb.nprice 内部调出成本, ijb.nmny 内部调出金额, 
 -- -- 内部结算信息-xg应付
--- payableitem.billdate, payableitem.billno, payableitem.local_money_bal, payableitem.local_money_cr, payableitem.local_notax_cr, payableitem.local_price, payableitem.local_tax_cr, payableitem.local_taxprice, payableitem.money_bal, payableitem.money_cr, payableitem.notax_cr, payableitem.price, payableitem.taxprice,
--- -- 内部结算信息-xg调入成本
--- ijb.cbill_bid, ijb.cbillid, ijh.vbillcode, substr(ijh.dbilldate, 1, 10), ijb.nmny, ijb.nnum, ijb.nprice, 1
+payableitem.pk_payablebill 内部应付主键, payableitem.pk_payableitem 行主键,payableitem.billdate 内部应付日期, payableitem.billno 内部应付单号, payableitem.local_money_bal 内部应付本币余额, payableitem.local_money_cr, payableitem.local_notax_cr, payableitem.local_price, payableitem.local_tax_cr, payableitem.local_taxprice, payableitem.money_bal, payableitem.money_cr, payableitem.notax_cr, payableitem.price, payableitem.taxprice,
+-- 内部结算信息-xg调入成本
+iib.cbill_bid 调入成本行主键, iib.cbillid 调入成本主键, iih.vbillcode 调拨成本单据号, substr(iih.dbilldate, 1, 10) 调拨入日期, iib.nmny 调拨入无税金额, iib.nnum 调拨入主数量, iib.nprice 调拨入单价
 from so_saleorder_b ob
 left join bd_material m on ob.cmaterialid = m.pk_material
 inner join so_saleorder oh on ob.csaleorderid = oh.csaleorderid
