@@ -21,14 +21,14 @@ BEGIN
 	create table #FlyTable00 (
 		任务号 varchar(50)
 		,产品编码 varchar(50)
-		,产品名称 varchar(90)
+		,产品名称 varchar(190)
 		,规格型号 varchar(150)
 		,产出入库数量 decimal(26, 6)
 		)
 	create table #FlyTable010 (
 		任务号 varchar(50)
 		,材料编码 varchar(50)
-		,材料名称 varchar(90)
+		,材料名称 varchar(190)
 		,规格型号 varchar(150)
 		,计量单位 varchar(50)
 		,合理损耗上限 decimal(26, 6)
@@ -39,7 +39,7 @@ BEGIN
 	create table #FlyTable01 (
 		任务号 varchar(50)
 		,材料编码 varchar(50)
-		,材料名称 varchar(90)
+		,材料名称 varchar(190)
 		,规格型号 varchar(150)
 		,计量单位 varchar(50)
 		,实际消耗数量 decimal(26,6)
@@ -47,10 +47,10 @@ BEGIN
 	create table #base00 (
 		任务号 varchar(50)
 		,产品编码 varchar(90)
-		,产品名称 varchar(50)
+		,产品名称 varchar(150)
 		,产品规格 varchar(150)
 		,材料编码 varchar(50)
-		,材料名称 varchar(90)
+		,材料名称 varchar(190)
 		,规格型号 varchar(150)
 		,计量单位 varchar(50)
 		,产出入库数量 decimal(26, 6)
