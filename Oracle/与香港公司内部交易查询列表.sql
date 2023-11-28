@@ -116,3 +116,38 @@ where h.billno = '2023040327'
 
 select t.
 from org_orgs t
+
+-- NC语义模型语句
+select 
+ ob.csaleorderbid , ob.csaleorderid , ob.carorgid saleorder_ar_org, oh.vbillcode saleorder_billcode, substr(ob.dbilldate, 1, 10) saleorderdate, 
+ db.cdeliverybid , db.cdeliveryid , 
+ cb.cgeneralbid , cb.cgeneralhid , substr(cb.dbizdate, 1, 10) date_chuku, 
+ ivb.csaleinvoicebid , ivb.csaleinvoiceid , 
+ recitem_xg.pk_recbill recitem_xg_id, recitem_xg.pk_recitem recitem_xg_item, 
+ i5b.cbill_bid i5_cbill_bid, i5b.cbillid i5_cbillid, 
+ tb.cbill_bid settlelistbid,tb.cbillid settlelistid, 
+ recitem.billdate recitem_billdate, recitem.billno recitem_billno, recitem.pk_recbill recitem_recbill, recitem.pk_recitem recitem_recitem, 
+ ijb.cbill_bid ijb_bid, ijb.cbillid ijb_id, ijh.vbillcode ijh_vbillcode, substr(ijh.dbilldate, 1, 10) ijh_dbilldate,
+ payableitem.pk_payablebill , payableitem.pk_payableitem ,substr(payableitem.billdate, 1, 10) payable_billdate, payableitem.billno payable_billno, 
+ iib.cbill_bid iib_bid, iib.cbillid iib_id, iih.vbillcode iib_vbillcode, substr(iih.dbilldate, 1, 10) iib_dbilldate
+from so_saleorder_b ob
+left join so_saleorder oh on ob.csaleorderid = oh.csaleorderid
+left join so_delivery_b db on ob.csaleorderbid = db.csrcbid  and nvl(db.dr,0) = 0
+left join ic_saleout_b cb on db.cdeliverybid = cb.csourcebillbid  and nvl(cb.dr,0) = 0
+left join ic_saleout_h ch on cb.cgeneralhid = ch.cgeneralhid and nvl(ch.dr,0) = 0
+left join so_saleinvoice_b ivb on cb.cgeneralbid = ivb.csrcbid and  nvl(ivb.dr,0) = 0 
+left join so_squareinv_d ivd on ivb.csaleinvoicebid = ivd.csquarebillbid and  nvl(ivd.dr,0) = 0 and (ivd.fsquaretype in (4,5,6) or ivd.fsquaretype is null)
+left join ia_i5bill_b i5b on ivd.csalesquaredid = i5b.csrcbid and  nvl(i5b.dr,0) = 0
+left join so_squareinv_b sqb on ivb.csaleinvoicebid = sqb.csquarebillbid and  nvl(sqb.dr,0) = 0 
+left join so_squareinv_d sqd on sqb.csalesquarebid = sqd.csalesquarebid and  nvl(sqd.dr,0) = 0 and nvl(sqd.fsquaretype,1) = 1
+left join ar_recitem recitem_xg on sqd.csalesquaredid = recitem_xg.top_itemid and  nvl(recitem_xg.dr,0) = 0 
+left join to_settlelist_b tb on cb.cgeneralbid = tb.csrcbid and nvl(tb.dr,0) = 0
+left join to_settlelist_bb tbb on tb.cbill_bid = tbb.cbill_bid and nvl(tbb.dr,0) = 0 
+left join ar_recitem recitem on tbb.cbill_bbid = recitem.top_itemid and nvl(recitem.dr,0) = 0
+left join ap_payableitem payableitem on tbb.cbill_bbid = payableitem.top_itemid and nvl(payableitem.dr,0) = 0
+left join ia_ijbill_b ijb on tbb.cbill_bbid = ijb.csrcbid and nvl(ijb.dr,0) = 0 
+left join ia_ijbill ijh on ijb.cbillid = ijh.cbillid and nvl(ijh.dr,0) = 0 
+left join ia_iibill_b iib on tbb.cbill_bbid = iib.csrcbid and nvl(iib.dr,0) = 0
+left join ia_iibill iih on iib.cbillid = iih.cbillid and nvl(iih.dr,0) = 0 
+where ob.dr = 0 
+      and oh.vtrantypecode = '30-Cxx-21'
