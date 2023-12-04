@@ -1,4 +1,5 @@
-alter TRIGGER CopyData_83To_saleorderdetails
+USE ecology;
+ALTER TRIGGER CopyData_83To_saleorderdetails
 ON formtable_main_83
 after UPDATE
 AS
@@ -7,7 +8,7 @@ BEGIN
    DECLARE @oamainid INT;
    DECLARE @COUNT INT;
    DECLARE @COUNT_cpqd INT;
-  IF UPDATE(isApproved)
+  IF UPDATE(shwc)
     BEGIN
       set @oamainid = (select COALESCE(A.[id], 0) from [dbo].[formtable_main_83] A JOIN inserted I ON A.[id] = I.[id] where A.[sfdxht] = 1);
       set @COUNT = (select COUNT(A.[zbid]) from [dbo].[uf_saleorderdetails] A JOIN inserted I ON A.[zbid] = I.[id]);
@@ -23,13 +24,14 @@ BEGIN
       IF @oamainid <> 0 AND @COUNT = 0 and @COUNT_cpqd >=1
         BEGIN
           INSERT INTO uf_saleorderdetails ([zbid] ,[requestId] ,[sqr] ,[sqrq] ,[sqbm] ,[sqgs] ,[htlx] ,[headsl] ,[htbh] ,[htmc] ,[qykh] ,[khmc] ,[u8khbmbm] ,[u8khywybm] ,[nbkh]  ,[xmbm] ,[xmmc] ,[htqdrq] ,[htqddd] ,[htksrq] ,[htjsrq] ,[jhrq] ,[mpxq],[sfzsht] ,[sfkp] ,[sfwl] , [sfcdyf] , [u8tbzt] , [dr] )
-          SELECT A.[id] as [id] ,A.[requestId] as [requestId] ,A.[sqr] as [sqr] ,A.[sqrq] as [sqrq] ,A.[sqbm] as [sqbm] ,A.[sqgs] as [sqgs] ,A.[htlx] as [htlx] ,A.[headsl] as [headsl] ,A.[htbh] as [htbh] ,A.[htmc] as [htmc] ,A.[qykh] as [qykh] ,A.[khmc] as [khmc] ,A.[u8bm] as [u8khbmbm] ,A.[u8ywy] as [u8khywybm] ,A.[nbkh] as [nbkh] ,A.[xmbm] as [xmbm] ,A.[xmmc] as [xmmc] ,A.[htqdrq] ,A.[htqddd] ,A.[htksrq] ,A.[htjsrq] ,A.[jhrq] ,A.[mpxq] as [mpxq],A.[sfzsht] as [sfzsht] ,A.[sfkp] as [sfkp] ,A.[sfwl] as [sfwl] ,A.[sfwfcdyf] as [sfcdyf] ,0 as [u8tbzt] ,0 as [dr]  
+          SELECT A.[id] as [id] ,A.[requestId] as [requestId] ,A.[sqr] as [sqr] ,A.[sqrq] as [sqrq] ,A.[sqbm] as [sqbm] ,A.[sqgs] as [sqgs] ,A.[htlx] as [htlx] ,A.[headsl] as [headsl] ,A.[htbh] as [htbh] ,A.[htmc] as [htmc] ,A.[qykh] as [qykh] ,A.[khmc] as [khmc] ,A.[u8bm] as [u8khbmbm] ,A.[u8ywy] as [u8khywybm] ,x.name as [nbkh] ,A.[xmbm] as [xmbm] ,A.[xmmc] as [xmmc] ,A.[htqdrq] ,A.[htqddd] ,A.[htksrq] ,A.[htjsrq] ,A.[jhrq] ,A.[mpxq] as [mpxq],A.[sfzsht] as [sfzsht] ,A.[sfkp] as [sfkp] ,A.[sfwl] as [sfwl] ,A.[sfwfcdyf] as [sfcdyf] ,0 as [u8tbzt] ,0 as [dr]  
           FROM [dbo].[formtable_main_83] A
+		  left join mode_selectitempagedetail x on x.mainid = 27 and x.disorder = A.nbkh
           where A.[sfdxht] = 1 AND A.[id] = @oamainid;
 
           -- 查询销售合同产品清单记录插入底表子表记录
           BEGIN
-            INSERT INTO uf_saleorderdetails_dt2 ([mainid],[htzbid],[cplb],[cpqdzbid],[u8cpbm],[cpmc],[ggxh],[jldwbm],[iQuantity],[hsdj],[sl],[je],[sm],[sfdx],[tbbs],[dr])
+            INSERT INTO uf_saleorderdetails_dt2 ([mainid],[htzbid],[cplb],[cpqdzbid],[u8cpbm],[cpmc],[ggxh],[jldwbm],[iQuantity],[hsdj],[sl],[je],[sm],[sfdx],[khcpmc],[khcpgg],[tbbs],[dr])
             SELECT [mainid] as [mainid]
                   ,[id] as [htzbid]
                   ,[cplx] as [cplb]
@@ -44,6 +46,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt2]
@@ -65,6 +69,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt4]
@@ -86,6 +92,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt6]
@@ -107,6 +115,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt8]
@@ -128,6 +138,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt10]
@@ -149,6 +161,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt12]
@@ -170,6 +184,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt14]
@@ -191,6 +207,8 @@ BEGIN
                   ,[je] as [je]
                   ,[sm] as [sm]
                   ,[sfdx] as [sfdx]
+                  ,isnull([khcpmc],[cpmc]) as [khcpmc]
+                  ,isnull([khcpgg],[ggxh]) as [khcpgg]
                   ,0 as [tbbs]
                   ,0 as [dr]
               FROM [dbo].[formtable_main_83_dt16]
