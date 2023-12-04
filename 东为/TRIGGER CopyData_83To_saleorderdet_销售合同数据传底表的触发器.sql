@@ -23,10 +23,11 @@ BEGIN
       -- 查询销售合同主表记录插入底表记录
       IF @oamainid <> 0 AND @COUNT = 0 and @COUNT_cpqd >=1
         BEGIN
-          INSERT INTO uf_saleorderdetails ([zbid] ,[requestId] ,[sqr] ,[sqrq] ,[sqbm] ,[sqgs] ,[htlx] ,[headsl] ,[htbh] ,[htmc] ,[qykh] ,[khmc] ,[u8khbmbm] ,[u8khywybm] ,[nbkh]  ,[xmbm] ,[xmmc] ,[htqdrq] ,[htqddd] ,[htksrq] ,[htjsrq] ,[jhrq] ,[mpxq],[sfzsht] ,[sfkp] ,[sfwl] , [sfcdyf] , [u8tbzt] , [dr] )
-          SELECT A.[id] as [id] ,A.[requestId] as [requestId] ,A.[sqr] as [sqr] ,A.[sqrq] as [sqrq] ,A.[sqbm] as [sqbm] ,A.[sqgs] as [sqgs] ,A.[htlx] as [htlx] ,A.[headsl] as [headsl] ,A.[htbh] as [htbh] ,A.[htmc] as [htmc] ,A.[qykh] as [qykh] ,A.[khmc] as [khmc] ,A.[u8bm] as [u8khbmbm] ,A.[u8ywy] as [u8khywybm] ,x.name as [nbkh] ,A.[xmbm] as [xmbm] ,A.[xmmc] as [xmmc] ,A.[htqdrq] ,A.[htqddd] ,A.[htksrq] ,A.[htjsrq] ,A.[jhrq] ,A.[mpxq] as [mpxq],A.[sfzsht] as [sfzsht] ,A.[sfkp] as [sfkp] ,A.[sfwl] as [sfwl] ,A.[sfwfcdyf] as [sfcdyf] ,0 as [u8tbzt] ,0 as [dr]  
+          INSERT INTO uf_saleorderdetails ([zbid] ,[requestId] ,[sqr] ,[sqrq] ,[sqbm] ,[sqgs] ,[htlx] ,[headsl] ,[htbh] ,[htmc] ,[qykh] ,[khmc] ,[u8khbmbm] ,[u8khywybm] ,[nbkh]  ,[xmbm] ,[xmmc] ,[htqdrq] ,[htqddd] ,[htksrq] ,[htjsrq] ,[jhrq] ,[mpxq],[sfzsht] ,[sfkp] ,[sfwl] , [sfcdyf] , [u8tbzt] , [dr] , cMaker, cSTCode, cBusType, iVTid, xmclass, shdz)
+          SELECT A.[id] as [id] ,A.[requestId] as [requestId] ,A.[sqr] as [sqr] ,A.[sqrq] as [sqrq] ,A.[sqbm] as [sqbm] ,A.[sqgs] as [sqgs] ,A.[htlx] as [htlx] ,A.[headsl] as [headsl] ,A.[htbh] as [htbh] ,A.[htmc] as [htmc] ,A.[qykh] as [qykh] ,A.[khmc] as [khmc] ,A.[u8bm] as [u8khbmbm] ,A.[u8ywy] as [u8khywybm] ,x.name as [nbkh] ,A.[xmbm] as [xmbm] ,A.[xmmc] as [xmmc] ,A.[htqdrq] ,A.[htqddd] ,A.[htksrq] ,A.[htjsrq] ,A.[jhrq] ,A.[mpxq] as [mpxq],A.[sfzsht] as [sfzsht] ,A.[sfkp] as [sfkp] ,A.[sfwl] as [sfwl] ,A.[sfwfcdyf] as [sfcdyf] ,0 as [u8tbzt] ,0 as [dr] ,isnull(a.cmaker,'demo') as cMaker,A.xsddlx as cSTCode,ST.cSTName AS cBusType,95 as iVTid,'00' as xmclass,A.shdz AS shdz 
           FROM [dbo].[formtable_main_83] A
 		  left join mode_selectitempagedetail x on x.mainid = 27 and x.disorder = A.nbkh
+		  LEFT JOIN UFDATA_001_2023.dbo.SaleType st ON A.xsddlx = ST.cSTCode 
           where A.[sfdxht] = 1 AND A.[id] = @oamainid;
 
           -- 查询销售合同产品清单记录插入底表子表记录
