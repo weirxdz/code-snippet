@@ -8,3 +8,32 @@ FROM (
   WHERE s.dr = 0
 )
 WHERE rn = 1
+;
+
+
+select distinct
+       t.def12,
+       t.def13,
+       t.def14,
+       t.def15,
+       t.def16,
+       t.def17,
+       t.def18,
+       t.def19,
+       
+       t.def20,
+       t.def21,
+       t.def22,
+       t.def23,
+       t.def24,
+       t.def25,
+       t.def26,
+       t.def27,
+       t.def28,
+       t.def29,
+       
+       t.def30,
+      
+       t.deletestate,
+       t.delperson,
+       t.deltime from bd_customer t
