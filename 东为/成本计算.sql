@@ -32,7 +32,7 @@ WHERE 1=1
 -- 分摊材料
 -- 需要区分焊接材料210101\210102、商砼材料0201\0202\0203\0204、其他材料
 -- 材料出库单上需要填写领料部门
-SELECT h.cCode ,b.cInvCode,b.cBatch ,B.iQuantity  ,b.iMPoIds ,h.cSource ,h.cDepCode 
+SELECT h.cCode ,b.cInvCode,b.cBatch ,B.iQuantity  ,b.iMPoIds ,h.cSource ,h.cDepCode ,b.iUnitCost 
 FROM rdrecords11 b
 INNER JOIN rdrecord11 h ON b.ID = h.ID 
 INNER JOIN Inventory i ON b.cInvCode = i.cInvCode 
@@ -42,10 +42,10 @@ WHERE 1=1
 	AND h.cSource = '库存'
 	
 -- 存货单价
-SELECT *
+SELECT iOriCost ,iUnitCost ,fACost 
 FROM RdRecord01 h
 INNER JOIN rdrecords01 b ON h.ID = b.ID 
-WHERE h.cCode = '202312060050'
+WHERE h.cCode = '202312060049'
 
 -- 制费从凭证取数；其中有一些其他的材料出库单，做凭证到制造费用，
 -- 费用凭证的发生数仅能录入借方，负数可以录入借方红字
