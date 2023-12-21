@@ -1,4 +1,10 @@
-USE ecology;
+USE [ecology]
+GO
+/****** Object:  Trigger [dbo].[CopyData_84To_po_orderdetails]    Script Date: 2023-12-21 15:26:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 ALTER TRIGGER [dbo].[CopyData_84To_po_orderdetails]
 ON [dbo].[formtable_main_84]
 after UPDATE
@@ -20,7 +26,7 @@ BEGIN
       IF @oamainid <> 0 AND @COUNT = 0 and @COUNT_cpqd >=1
         BEGIN
           INSERT INTO uf_po_orderdetail (requestId, htid, sqr, sqbm, sqgs, cglx, gysbm, gysmc,  sfzsht, sfcdyf, htmc, htbh, qdrq, qddd, nsrsbh, gysdz, lxdh, khx, zh, bzyq, ysfs, jhfs, jhdd, jyfs, jhqx, jssj, jsfs, bz, szgs, u8tbzt, cmaker, cptcode, cbustype, ivtid,U8bmbm,U8ywybm)
-          SELECT A.requestId as requestId,A.ID AS htid,a.sqr as sqr,a.sqbm as sqbm, A.sqgs, A.cglx,A.QYGYS AS gysbm, A.gysmc, A.sfzsht,case when A.[sfzt] = 0 then '否' when A.[sfzt] = 1 then '是' end AS sfcdyf, A.htmc, A.htbh, A.qdrq, A.qddd, A.nsrsbh,A.DZ AS gysdz, A.lxdh, A.khx, A.zh, A.bzyq, A.ysfs,A.whfs AS jhfs, A.jhdd, A.jyfs,A.qx as jhqx, A.jssj, A.jsfs, A.bz, A.szgs,1 as u8tbzt,case when A.cmaker IS null or A.cmaker = '' then ' demo'else A.cmaker end as cmaker,PT.cPTCode  as cptcode,CASE WHEN PT.cPTName = '固定资产采购' THEN '固定资产' WHEN PT.cPTName = '普通采购' OR PT.cPTName = '办公用品采购' THEN '普通采购' end as cbustype,8173  AS ivtid,V.cVenDepart AS U8bmbm,V.cVenPPerson  AS U8ywybm
+          SELECT A.requestId as requestId,A.ID AS htid,a.sqr as sqr,a.sqbm as sqbm, A.sqgs, A.cglx,A.QYGYS AS gysbm, A.gysmc, A.sfzsht,case when A.[sfzt] = 1 then '否' when A.[sfzt] = 0 then '是' end AS sfcdyf, A.htmc, A.htbh, A.qdrq, A.qddd, A.nsrsbh,A.DZ AS gysdz, A.lxdh, A.khx, A.zh, A.bzyq, A.ysfs,A.whfs AS jhfs, A.jhdd, A.jyfs,A.qx as jhqx, A.jssj, A.jsfs, A.bz, A.szgs,1 as u8tbzt,case when A.cmaker IS null or A.cmaker = '' then ' demo'else A.cmaker end as cmaker,PT.cPTCode  as cptcode,CASE WHEN PT.cPTName = '固定资产采购' THEN '固定资产' WHEN PT.cPTName = '普通采购' OR PT.cPTName = '办公用品采购' THEN '普通采购' end as cbustype,8173  AS ivtid,V.cVenDepart AS U8bmbm,V.cVenPPerson  AS U8ywybm
           FROM ecology.dbo.formtable_main_84 A
           LEFT JOIN UFDATA_001_2023.dbo.PurchaseType pt ON A.cglx = PT.cPTName 
           LEFT JOIN UFDATA_001_2023.dbo.Vendor v ON A.qygys = V.cVenCode 
