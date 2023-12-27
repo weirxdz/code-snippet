@@ -37,7 +37,7 @@ begin
     or :new.pk_org = '0001B3100000000028GW'-- 保龄宝本部
     or :new.pk_org = '0001B31000000048Q71R'-- 保龄宝国际
     or :new.pk_org = '0001B31000000039DYB9'-- 保龄宝青岛，20231218添加
-    ) and new.blargessflag = 'N' -- 仅对非赠品行进行处理，赠品行不处理
+    ) and :new.blargessflag = 'N' -- 仅对非赠品行进行处理，赠品行不处理
     then --筛选销售组织
     t_tax_factor := 0.884955752;
     select nvl(bd_material.code,'')                  into t_code             from bd_material       where bd_material.pk_material = :new.cmaterialid ;
