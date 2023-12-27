@@ -9,7 +9,7 @@
 SELECT t.VoucherTypeID ,t.VoucherID ,t.FileID ,t.FileName ,t.FileContent ,t.Memo  FROM VoucherAccessories t
 ;
 -- 以下为U8的销售订单查询语句
-SELECT h.ID ,h.cSOCode ,h.dDate ,h.cDefine8 AS sfqk,h.cDefine11 AS projectcode ,h.cDefine12 AS projectname,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.iStatus  ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
+SELECT h.ID ,h.cSOCode ,h.dDate ,h.cDefine8 AS sfqk,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.iStatus  ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
 FROM SO_SOMain h
 INNER JOIN SO_SODetails b ON h.ID = b.ID  
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode 
