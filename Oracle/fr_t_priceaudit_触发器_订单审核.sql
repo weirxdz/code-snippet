@@ -31,12 +31,13 @@ declare
   t_unitflag         number(6,2);
   t_fbuysellflag     number(6,2);
 begin
-  if  :new.pk_org = '0001B3100000000028HE' -- 淀粉糖事业部
+  if (:new.pk_org = '0001B3100000000028HE' -- 淀粉糖事业部
     or :new.pk_org = '0001B31000000001VU4Q'-- 国际业务部
     or :new.pk_org = '0001B3100000000028GZ'-- 国内业务部
     or :new.pk_org = '0001B3100000000028GW'-- 保龄宝本部
     or :new.pk_org = '0001B31000000048Q71R'-- 保龄宝国际
     or :new.pk_org = '0001B31000000039DYB9'-- 保龄宝青岛，20231218添加
+    ) and new.blargessflag = 'N' -- 仅对非赠品行进行处理，赠品行不处理
     then --筛选销售组织
     t_tax_factor := 0.884955752;
     select nvl(bd_material.code,'')                  into t_code             from bd_material       where bd_material.pk_material = :new.cmaterialid ;
