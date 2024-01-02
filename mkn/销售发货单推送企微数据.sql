@@ -9,12 +9,14 @@
 SELECT t.VoucherTypeID ,t.VoucherID ,t.FileID ,t.FileName ,t.FileContent ,t.Memo  FROM VoucherAccessories t
 ;
 -- 以下为U8的销售发货单查询语句
-SELECT h.DLID ,h.cSOCode AS 销售订单号,h.cDLCode 发货单号,h.dDate ,h.cDefine8 AS sfqk,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
+SELECT h.DLID ,h.cSOCode AS 销售订单号,h.cDLCode 发货单号,h.dDate ,h.cDefine8 AS 是否欠款,h.cDefine11 AS projectcode ,h.cDefine12 AS projectname,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,hp.cPsnPostAddr AS 业务员账号,UU.cUserEmail AS 制单人账号,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
 FROM DispatchList h
 INNER JOIN DispatchLists  b ON h.DLID = b.DLID  
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode 
 LEFT JOIN Customer c ON h.cCusCode = c.cCusCode 
 LEFT JOIN Person p ON h.cPersonCode = p.cPersonCode 
+LEFT JOIN hr_hi_person hp ON h.cPersonCode = hp.cPsn_Num 
+LEFT JOIN UA_User uu ON H.cMaker = UU.cUser_Name 
 INNER JOIN Inventory i ON b.cInvCode = i.cInvCode 
 WHERE 1=1 
 	-- AND convert(varchar(10),h.dDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
