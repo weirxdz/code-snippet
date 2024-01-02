@@ -9,18 +9,23 @@
 SELECT t.VoucherTypeID ,t.VoucherID ,t.FileID ,t.FileName ,t.FileContent ,t.Memo  FROM VoucherAccessories t
 ;
 -- 以下为U8的销售订单查询语句
-SELECT h.ID ,h.cSOCode ,h.dDate ,h.cDefine8 AS sfqk,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.iStatus  ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
+SELECT h.ID ,h.cSOCode ,h.dDate ,h.cDefine8 AS 是否欠款,h.cDefine11 AS projectcode ,h.cDefine12 AS projectname,d.cDepName AS salesdeptname,c.cCusName  as custname,p.cPersonName  as clerkname,hp.cPsnPostAddr AS 业务员账号,UU.cUserEmail AS 制单人账号,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.iStatus  ,h.wxOaState,h.cMaker ,h.cVerifier ,h.dverifydate ,b.cInvCode ,i.cInvName ,b.iQuantity ,b.iSum AS 价税合计
 FROM SO_SOMain h
 INNER JOIN SO_SODetails b ON h.ID = b.ID  
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode 
 LEFT JOIN Customer c ON h.cCusCode = c.cCusCode 
 LEFT JOIN Person p ON h.cPersonCode = p.cPersonCode 
+LEFT JOIN hr_hi_person hp ON h.cPersonCode = hp.cPsn_Num 
+LEFT JOIN UA_User uu ON H.cMaker = UU.cUser_Name 
 INNER JOIN Inventory i ON b.cInvCode = i.cInvCode 
 WHERE 1=1 AND h.iStatus = 0 
 	-- AND convert(varchar(10),h.dDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
 	AND (h.wxOaState IS NULL OR h.wxOaState = 0)
-	
-	
+;
+SELECT t.cPersonCode ,t.cPersonName  FROM person t
+;
+SELECT t.cPsn_Num ,t.cPsn_Name ,t.vIDNo FROM hr_hi_person t
+;	
 -- 对U8数据库表需要增加的列
 ALTER TABLE UFDATA_999_2014.dbo.Person ADD WXID varchar(100) NULL;
 EXEC UFDATA_999_2014.sys.sp_addextendedproperty 'MS_Description', N'微信号', 'schema', N'dbo', 'table', N'Person', 'column', N'WXID';
