@@ -9,11 +9,13 @@
 SELECT t.VoucherTypeID ,t.VoucherID ,t.FileID ,t.FileName ,t.FileContent ,t.Memo  FROM VoucherAccessories t
 ;
 -- 以下为U8的采购请购单查询语句
-SELECT h.ID  ,h.cCode  ,h.dDate  ,d.cDepName AS deptname,p.cPersonName  as clerkname,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.wxOaState,h.cMaker ,h.cVerifier ,h.cAuditDate ,h.cAuditTime ,h.iverifystateex ,b.cInvCode ,i.cInvName,i.cInvStd  ,b.fQuantity  ,b.dRequirDate  AS 需求日期
+SELECT h.ID  ,h.cCode  ,h.dDate,h.cDefine8 as 是否外购,d.cDepName AS deptname,p.cPersonName  as clerkname,hp.cPsnPostAddr AS 业务员账号,UU.cUserEmail AS 制单人账号,isnull(P.WXID,'XiaoTong') AS WXID,h.cMemo ,h.wxOaState,h.cMaker ,h.cVerifier ,h.cAuditDate ,h.cAuditTime ,h.iverifystateex ,b.cInvCode ,i.cInvName,i.cInvStd  ,b.fQuantity  ,b.dRequirDate  AS 需求日期
 FROM PU_AppVouch h
 INNER JOIN PU_AppVouchs b ON h.ID = b.ID 
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode 
 LEFT JOIN Person p ON h.cPersonCode = p.cPersonCode 
+LEFT JOIN hr_hi_person hp ON h.cPersonCode = hp.cPsn_Num 
+LEFT JOIN UA_User uu ON H.cMaker = UU.cUser_Name 
 INNER JOIN Inventory i ON b.cInvCode = i.cInvCode 
 WHERE 1=1-- h.iStatus = 0 
 	-- AND convert(varchar(10),h.dDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
