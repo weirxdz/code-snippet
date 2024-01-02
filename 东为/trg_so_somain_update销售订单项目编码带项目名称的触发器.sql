@@ -31,7 +31,7 @@ BEGIN
     FROM fitemss00 f 
     WHERE f.citemcode  = (SELECT cdefine11 FROM inserted);
 
-    IF @itemname IS NOT NULL  AND (SELECT cdefine12 FROM inserted) IS null
+    IF @itemname IS NOT NULL  -- AND (SELECT cdefine12 FROM inserted) IS null
     BEGIN
         UPDATE DispatchList
         SET cdefine12 = @itemname
@@ -60,9 +60,10 @@ BEGIN
     END
 END
 ;
-SELECT citemname
+SELECT citemcode ,citemname,*
     FROM fitemss00 f 
-    WHERE f.citemcode  = '20230164';
+    WHERE f.citemcode  = '0100001'
+    --citemname LIKE '%龙庭悦府人防门%';
 
 -- 生产订单修改项目编码的自定义项后自动更新项目名称的自定义项
 ALTER   TRIGGER trg_mom_order_update
