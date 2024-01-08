@@ -21,7 +21,7 @@ WHERE 1=1-- h.iStatus = 0
 	-- AND convert(varchar(10),h.dDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
 	AND (h.wxOaState IS NULL OR h.wxOaState = 0)
 	
-	
+	SELECT * from v_PU_AppVouch
 	
 -- 对U8数据库表需要增加的列
 ALTER TABLE UFDATA_999_2014.dbo.PU_AppVouch  ADD wxOaState int NULL;
