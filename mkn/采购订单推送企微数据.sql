@@ -23,7 +23,7 @@ WHERE 1=1-- h.iStatus = 0
 	AND (h.wxOaState IS NULL OR h.wxOaState = 0)
 	
 	
-	
+	SELECT * FROM v_po_main
 -- 对U8数据库表需要增加的列
 ALTER TABLE UFDATA_999_2014.dbo.PO_Pomain  ADD wxOaState int NULL;
 EXEC UFDATA_999_2014.sys.sp_addextendedproperty 'MS_Description', N'推送微信状态', 'schema', N'dbo', 'table', N'PO_Pomain', 'column', N'wxOaState';
