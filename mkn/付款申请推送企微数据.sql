@@ -19,7 +19,7 @@ LEFT JOIN UA_User uu ON H.cOperator = UU.cUser_Name
 LEFT JOIN Inventory i ON b.cInvCode = i.cInvCode 
 WHERE 1=1-- h.iStatus = 0 
 	-- AND convert(varchar(10),h.dVouchDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
-	AND (h.wxOaState IS NULL OR h.wxOaState = 0)
+	AND (h.wxOaState IS NULL )
 	
 ;
 SELECT * FROM AP_ApplyPayVouch T WHERE T.cVouchID = '0000000039'
