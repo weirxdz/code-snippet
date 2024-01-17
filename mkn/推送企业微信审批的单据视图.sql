@@ -1,6 +1,6 @@
 -- 推送企业微信审批的单据视图
 -- 销售订单主表视图
-CREATE VIEW v_so_main AS 
+ALTER VIEW v_so_main AS 
 SELECT
 	h.ID as id,
 	h.cSOCode ,
@@ -29,12 +29,12 @@ FROM
 	LEFT JOIN UA_User uu ON H.cMaker = UU.cUser_Name  
 WHERE
 	1 = 1 
-	AND (h.iStatus = 0 OR h.iStatus IS NULL)  -- AND convert(varchar(10),h.dDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
-	
+	AND (h.iStatus = 0 OR h.iStatus IS NULL) 
+	AND (h.cVerifier IS NULL OR h.cVerifier = '')
 	AND ( h.wxOaState IS NULL OR h.wxOaState = '' );
 
 -- 销售订单子表视图
-CREATE VIEW v_so_main_b AS 
+ALTER VIEW v_so_main_b AS 
 SELECT
 	b.id,
 	b.cInvCode ,
@@ -46,7 +46,7 @@ SELECT
 FROM
 	SO_SODetails b
 	INNER JOIN Inventory i ON b.cInvCode = i.cInvCode
-	INNER JOIN SO_SOMain h ON b.ID = h.ID AND h.cVerifier IS NOT NULL ;
+	INNER JOIN SO_SOMain h ON b.ID = h.ID AND (h.cVerifier IS NOT NULL OR h.cVerifier = '');
 	
 -- 发货单主表视图
 CREATE  VIEW dbo.v_DispatchList
@@ -79,7 +79,8 @@ LEFT OUTER JOIN dbo.Person AS p ON	h.cPersonCode = p.cPersonCode
 LEFT OUTER JOIN dbo.hr_hi_person AS hp ON	h.cPersonCode = hp.cPsn_Num
 LEFT OUTER JOIN dbo.UA_User AS uu ON	h.cMaker = uu.cUser_Name
 WHERE 1 = 1
-	AND (h.wxOaState IS NULL OR h.wxOaState = '' );
+	AND (h.wxOaState IS NULL OR h.wxOaState = '' )
+	AND (h.cVerifier IS NULL OR h.cVerifier = '');
 -- 发货单子表视图
 CREATE VIEW v_DispatchList_b AS 
 	SELECT
@@ -91,7 +92,7 @@ CREATE VIEW v_DispatchList_b AS
 	b.iSum 
 	FROM	DispatchLists b
 	INNER JOIN Inventory i ON b.cInvCode = i.cInvCode
-	INNER JOIN DispatchList h ON b.DLID = h.DLID AND h.cVerifier IS NULL ;
+	INNER JOIN DispatchList h ON b.DLID = h.DLID AND (h.cVerifier IS NULL OR h.cVerifier = '');
 -- 请购单主表视图
 CREATE VIEW dbo.v_PU_AppVouch
 AS
@@ -119,7 +120,8 @@ LEFT OUTER JOIN  dbo.Person AS p ON	h.cPersonCode = p.cPersonCode
 LEFT OUTER JOIN dbo.hr_hi_person AS hp ON	h.cPersonCode = hp.cPsn_Num
 LEFT OUTER JOIN  dbo.UA_User AS uu ON	h.cMaker = uu.cUser_Name
 WHERE 1 = 1
-	AND ( h.wxOaState IS NULL OR h.wxOaState = '' );
+	AND ( h.wxOaState IS NULL OR h.wxOaState = '' )
+	AND (h.cVerifier IS NULL OR h.cVerifier = '');
 
 -- 请购单子表视图
 CREATE VIEW v_PU_AppVouch_b AS 
@@ -133,7 +135,7 @@ CREATE VIEW v_PU_AppVouch_b AS
 FROM
 	PU_AppVouchs b
 	INNER JOIN Inventory i ON b.cInvCode = i.cInvCode
-	INNER JOIN PU_AppVouch h ON b.ID = h.ID AND h.cVerifier IS NOT NULL ;
+	INNER JOIN PU_AppVouch h ON b.ID = h.ID AND (h.cVerifier IS NOT NULL OR h.cVerifier = '');
 	
 -- 采购订单主表视图
 CREATE VIEW dbo.v_po_main
@@ -169,8 +171,9 @@ LEFT OUTER JOIN dbo.Person AS p ON	h.cPersonCode = p.cPersonCode
 LEFT OUTER JOIN dbo.hr_hi_person AS hp ON	h.cPersonCode = hp.cPsn_Num
 LEFT OUTER JOIN dbo.UA_User AS uu ON	h.cMaker = uu.cUser_Name
 WHERE  1 = 1
-	AND (		h.cVerifier IS NULL	)
-	AND (		h.wxOaState IS NULL			OR                h.wxOaState = ''	);
+	AND (		h.cVerifier IS NULL	OR h.cVerifier = '')
+	AND (		h.wxOaState IS NULL	OR h.wxOaState = ''	)
+	;
 -- 采购订单子表视图
 CREATE VIEW v_po_main_b AS 
 SELECT
@@ -196,10 +199,11 @@ SELECT DISTINCT
 	END AS subClass -- 存货采购分类
 FROM
 	PO_Podetails b
-INNER JOIN PO_Pomain h ON h.POID = b.POID AND h.cVerifier IS NULL 
-INNER JOIN Inventory i ON b.cInvCode = i.cInvCode;
+INNER JOIN PO_Pomain h ON h.POID = b.POID AND (h.cVerifier IS NOT NULL OR h.cVerifier = '')
+INNER JOIN Inventory i ON b.cInvCode = i.cInvCode
+;
 -- 付款申请单主表视图
-CREATE VIEW v_AP_ApplyPayVouch AS 
+ALTER VIEW v_AP_ApplyPayVouch AS 
 SELECT
 	h.pID as id,
 	h.cVouchID,
@@ -209,6 +213,7 @@ SELECT
 	isnull(UU.cUserEmail, 'XiaoTong') AS wxId, -- 申请人账号
 	pp.cPsnPostAddr AS fkspr,-- 付款审批人
 	UU.cUserEmail AS cUserEmail, -- 制单人账号
+	Hp.cPsnPostAddr AS cPsnPostAddr,-- 业务员账号
 	h.cDigest AS cDigest, --备注
 	h.wxOaState,
 	h.cOperator, -- 制单人名称
@@ -223,9 +228,10 @@ LEFT JOIN hr_hi_person hp ON h.cPerson = hp.cPsn_Num
 LEFT JOIN hr_hi_person pp ON h.cDefine9 = pp.cPsn_Num
 LEFT JOIN UA_User uu ON H.cOperator = UU.cUser_Name
 WHERE
-	1 = 1-- h.iStatus = 0 -- AND convert(varchar(10),h.dVouchDate,120) >= '2023-05-20' -- 开始同步日期，接口只处理此日期之后的记录
-	
-	AND ( h.wxOaState IS NULL OR h.wxOaState = '' );
+	1 = 1
+	AND (h.cCheckMan IS NULL OR h.cCheckMan = '')
+	AND ( h.wxOaState IS NULL OR h.wxOaState = '' )
+;
 -- 付款申请单子表视图
 CREATE VIEW v_AP_ApplyPayVouch_b AS 
 SELECT
@@ -237,5 +243,5 @@ SELECT
 FROM
 	AP_ApplyPayVouchs b
 	left JOIN Inventory i ON b.cInvCode = i.cInvCode
-	INNER JOIN AP_ApplyPayVouch h ON b.PID = h.PID AND h.cCheckMan IS NOT NULL  ;
+	INNER JOIN AP_ApplyPayVouch h ON b.PID = h.PID AND (h.cCheckMan IS NULL OR h.cCheckMan = '');
 
