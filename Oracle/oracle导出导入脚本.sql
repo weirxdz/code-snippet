@@ -1,26 +1,37 @@
--- æŸ¥è¯¢ç³»ç»Ÿç°æœ‰çš„directory
+-- ²éÑ¯ÏµÍ³ÏÖÓĞµÄdirectory
 SELECT *
 FROM DBA_DIRECTORIES
 ;
 grant read,write on directory NCBAK to blbzs ;
--- å¯¼å‡º
+-- µ¼³ö
 expdp blbzs@nc  parallel=8  directory=NCBAK dumpfile=exp230531_%U.dmp schemas=blbzs logfile=exp230531.log
 
--- åˆ›å»ºç”¨æˆ·
+-- ´´½¨ÓÃ»§
 
-create user blb230531 identified by blb230531 default tablespace NNC_DATA01 temporary tablespace temp; 
+create user blb230531 identified by ***** default tablespace NNC_DATA01 temporary tablespace temp; 
 
--- ç”¨æˆ·æˆæƒ
-grant connect,dba to blb230531;  -- cmsç³»ç»Ÿä¸­éœ€è¦å¢åŠ grant create view to bp_oracleè§†å›¾æƒé™
+-- ÓÃ»§ÊÚÈ¨
+grant connect,dba to blb230531;  -- cmsÏµÍ³ÖĞĞèÒªÔö¼Ógrant create view to bp_oracleÊÓÍ¼È¨ÏŞ
 
--- ç”¨æˆ·å¯ä»¥ è®¿é—®dump_dir æ–¹ä¾¿è¿›è¡Œå¯¼å…¥å’Œå¯¼å‡ºæ“ä½œ
-grant read,write on directory NCBAK to blb230531;  -- å¦‚æœæ²¡æœ‰dump_dirå¯ä»¥å»ºç«‹
+-- ÓÃ»§¿ÉÒÔ ·ÃÎÊdump_dir ·½±ã½øĞĞµ¼ÈëºÍµ¼³ö²Ù×÷
+grant read,write on directory NCBAK to blb230531;  -- Èç¹ûÃ»ÓĞdump_dir¿ÉÒÔ½¨Á¢
 
 impdp blb230531/blb230531@nc parallel=8  directory=NCBAK dumpfile=exp230531_%U.dmp  logfile=imp230531.log schemas=blbzs remap_schema=blbzs:blb230531
 
 
+expdp blbzs@nc  parallel=8  directory=NCBAK dumpfile=exp230627_%U.dmp schemas=blbzs logfile=exp230627.log FILESIZE=12G
+-- ´´½¨ÓÃ»§
 
--- æœ‰å¼‚å¸¸çš„è¡¨ã€è§†å›¾ã€å­˜å‚¨è¿‡ç¨‹
+create user blb230627 identified by *** default tablespace NNC_DATA01 temporary tablespace temp; 
+
+-- ÓÃ»§ÊÚÈ¨
+grant connect,dba to blb230627;  -- cmsÏµÍ³ÖĞĞèÒªÔö¼Ógrant create view to bp_oracleÊÓÍ¼È¨ÏŞ
+
+-- ÓÃ»§¿ÉÒÔ ·ÃÎÊdump_dir ·½±ã½øĞĞµ¼ÈëºÍµ¼³ö²Ù×÷
+grant read,write on directory NCBAK to blb230627; 
+
+impdp blb230627/****@nc parallel=8  directory=NCBAK dumpfile=exp230627_%U.dmp  logfile=imp230627.log schemas=blbzs remap_schema=blbzs:blb230627
+-- ÓĞÒì³£µÄ±í¡¢ÊÓÍ¼¡¢´æ´¢¹ı³Ì
 SELECT *
 FROM user_objects
 WHERE object_type = 'PROCEDURE';

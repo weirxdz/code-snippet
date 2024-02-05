@@ -29,3 +29,22 @@ var str = this.getValue();
 if(str.length > 8){
 	this.setValue(str.slice(-8),true);
 	}
+	
+setTimeout(function() {
+    var CK = _g().getCellValue(0,2,11);
+    var RK = _g().getCellValue(0,2,45);
+    var result = (RK - CK) / CK;
+    result = Math.round(Math.abs(result) * 1000) / 1000;
+    if (result > 0.01) {
+        alert("提示：请检查入库数量填写是否正确！入库的65度重量为：" + RK + "，出库65度重量为：" + CK + "。");
+    }
+}, 1000);
+
+
+setTimeout(function() {
+    var CK = _g().getCellValue(0,2,11);
+    var RK = _g().getCellValue(0,2,45);
+    var result = (RK - CK) / CK;
+    result = Math.round(Math.abs(result) * 1000) / 1000;
+    alert("提示：请检查入库数量填写是否正确！入库数量为：" + RK + "，出库数量为：" + CK + "。"+result);
+}, 1000);

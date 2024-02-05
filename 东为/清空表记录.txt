@@ -1,0 +1,9 @@
+TRUNCATE TABLE TT.dbo.其他出库制造费用明细表;
+TRUNCATE TABLE TT.dbo.其他材料明细表;
+TRUNCATE TABLE TT.dbo.商砼材料明细表;
+TRUNCATE TABLE TT.dbo.总账制造费用明细表;
+TRUNCATE TABLE TT.dbo.成本对象明细表;
+TRUNCATE TABLE TT.dbo.成本计算分项记录表;
+TRUNCATE TABLE TT.dbo.成本计算汇总记录表;
+TRUNCATE TABLE TT.dbo.焊接材料明细表;
+TRUNCATE TABLE TT.dbo.直接材料明细表;
