@@ -31,29 +31,244 @@ LEFT JOIN gl_voucher h ON (b.pk_voucher = h.pk_voucher)
 
 ;
 -- 凭证取费用科目发生
-SELECT DISTINCT glvou.num,gl.yearv, gl.periodv,smuser.user_code, smuser.user_name,glvou.billmaker,glvou.pk_system,glvou.discardflag,gl.assid,accsubj.code subjcode,accsubj.name subjname,gl.creditamount,gl.debitamount,
-(CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount
-      ELSE gl.debitamount
-  END) fs,
-gl_docfree1.f1,org_dept_v.code deptcode,org_dept_v.name deptname,org_dept_v.pk_org,org.code orgcode,org.name orgname,org_dept_v.pk_group,grp.code grpcode,grp.name grpname 
-FROM gl_docfree1 INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
+SELECT  org.code 组织编码,org.name 组织名称,org_dept_v.code 部门编码,org_dept_v.name 部门名称,glvou.num 凭证号,gl.yearv 年度, gl.periodv 月份, smuser.user_name 制单人,glvou.pk_system 制单系统,glvou.discardflag 作废标识,accsubj.code 科目编码,a.name 科目名称,CASE WHEN a.def1 = '~' THEN a.name else a.def1 end 预算项目,CASE WHEN a.def2 = '~' THEN a.name else a.def2 end 预算控制项目,gl.creditamount 贷方金额,gl.debitamount 借方金额,
+CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END AS 费用发生额
+FROM gl_docfree1 
+INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
 INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org 
 INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
 Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
 INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
 INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
 inner join sm_user smuser on smuser.cuserid=glvou.billmaker
 WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
  AND nvl(org_dept_v.dr,0)=0 AND nvl(gl_docfree1.dr,0)=0
  AND nvl(org.dr,0)=0 AND nvl(grp.dr,0)=0
  AND nvl(gl.dr,0)=0 AND nvl(accsubj.dr,0)=0
- AND glvou.pk_system IN (/*'GL','IA',*/'erm')
  AND glvou.discardflag='N'
  AND gl.yearv>=2015 AND gl.periodv>'00'
- AND accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306','50010301','500108','510104','51010903','510110','510115','510116','510117','510118','510125','53010101','53010104', '5301010903','53010110','53010115','660104','66010903','660110','660113','660118','660119','660120','660123','660204','66020903','660210','660215', '660218','660223','660224')
- 
+ AND substr(accsubj.code,1,4) IN ('5101','5301','6601','6602')
  ;
-SELECT sum(er_busitem.amount) amount_sum, er_reimtype.name name, er_reimtype.code code, bd_inoutbusiclass.name name_1, substr(substr(er_bxzb.djrq, 1, 10), 0, 4) yearv, substr(substr(er_bxzb.djrq, 1, 10), 6, 2) periodv, substr(er_bxzb.djrq, 1, 10) djrq, substr(substr(er_bxzb.djrq, 1, 10), 9, 2) djrq_day, er_bxzb.spzt spzt, org_financeorg.name name_2, org_financeorg.code code_1, org_group.name name_3, org_group.code code_2, org_dept.code code_3, org_dept.name name_4, er_bxzb.djbh djbh FROM er_busitem er_busitem LEFT JOIN er_reimtype er_reimtype ON er_busitem.pk_reimtype = er_reimtype.pk_reimtype LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.szxmid = bd_inoutbusiclass.pk_inoutbusiclass INNER JOIN er_bxzb er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group LEFT JOIN org_dept org_dept ON er_bxzb.deptid = org_dept.pk_dept GROUP BY er_reimtype.name, er_reimtype.code, bd_inoutbusiclass.name, substr(substr(er_bxzb.djrq, 1, 10), 0, 4), substr(substr(er_bxzb.djrq, 1, 10), 6, 2), substr(er_bxzb.djrq, 1, 10), substr(substr(er_bxzb.djrq, 1, 10), 9, 2), er_bxzb.spzt, org_financeorg.name, org_financeorg.code, org_group.name, org_group.code, org_dept.code, org_dept.name, er_bxzb.djbh
+-- 凭证取费用科目发生汇总
+SELECT  org.code 组织编码,org.name 组织名称,org_dept_v.code 部门编码,org_dept_v.name 部门名称,CASE WHEN a.def1 = '~' THEN a.name else a.def1 end 预算项目,CASE WHEN a.def2 = '~' THEN a.name else a.def2 end 预算控制项目,
+sum(CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END) AS 费用发生额
+FROM gl_docfree1 
+INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
+INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org 
+INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
+Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
+INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
+inner join sm_user smuser on smuser.cuserid=glvou.billmaker
+WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
+ AND nvl(org_dept_v.dr,0)=0 AND nvl(gl_docfree1.dr,0)=0
+ AND nvl(org.dr,0)=0 AND nvl(grp.dr,0)=0
+ AND nvl(gl.dr,0)=0 AND nvl(accsubj.dr,0)=0
+ AND glvou.discardflag='N'
+ AND gl.yearv>=2015 AND gl.periodv>'00'
+ AND substr(accsubj.code,1,4) IN ('5101','5301','6601','6602')
+GROUP BY org.code ,org.name ,org_dept_v.code ,org_dept_v.name ,CASE WHEN a.def1 = '~' THEN a.name else a.def1 end ,CASE WHEN a.def2 = '~' THEN a.name else a.def2 end 
+;
+
+SELECT * FROM ORG_DEPT od WHERE od.PK_DEPT = '1001B31000000003C75T'
+;
+
+
 ;
 SELECT DISTINCT pk_system FROM gl_voucher WHERE dr = 0
  ;
+-- 报销单
+SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END 部门名称, bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq,9,2) djrq_day,er_busitem.amount 费用发生额,er_busitem.BBYE 费用余额,er_bxzb.DJBH 
+FROM er_busitem er_busitem 
+LEFT JOIN er_reimtype er_reimtype ON er_busitem.pk_reimtype = er_reimtype.pk_reimtype 
+LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.szxmid = bd_inoutbusiclass.pk_inoutbusiclass 
+INNER JOIN er_bxzb er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+LEFT JOIN org_dept org_dept ON er_bxzb.fydeptid  = org_dept.pk_dept 
+LEFT JOIN fip_relation r ON er_bxzb.PK_JKBX = SUBSTR(r.src_relationid,1,20) AND r.src_system  = 'erm' AND er_bxzb.DJBH = r.SRC_FREEDEF1 
+WHERE er_busitem.dr = 0 -- er_bxzb.fydeptid <> '1001B31000000003C75T' -- 公共费用分摊部门的报销单到结转单取数;这个条件没用了；有一个"公司行政费用"的部门破坏规则了
+	AND r.DES_BILLTYPE IS NULL 
+	AND bd_inoutbusiclass.code NOT IN ('67')
+	AND er_bxzb.PK_JKBX NOT IN (SELECT DISTINCT pk_jkbx FROM er_cshare_detail )
+	AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+	AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+UNION ALL 
+-- 费用结转
+SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END  部门名称,bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq, 9, 2) djrq_day, er_busitem.assume_amount  费用发生额,er_busitem.assume_amount  费用余额,
+ er_bxzb.djbh djbh 
+FROM er_cshare_detail er_busitem 
+LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.pk_iobsclass  = bd_inoutbusiclass.pk_inoutbusiclass 
+INNER JOIN er_bxzb er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+LEFT JOIN org_dept org_dept ON er_busitem.assume_dept = org_dept.pk_dept -- 费用承担部门
+LEFT JOIN fip_relation r ON er_bxzb.PK_JKBX = SUBSTR(r.src_relationid,1,20) AND r.src_system  = 'erm' AND er_bxzb.DJBH = r.SRC_FREEDEF1 
+WHERE er_busitem.dr = 0 --er_bxzb.fydeptid = '1001B31000000003C75T' -- 公共费用分摊部门的报销单到结转单取数;这个条件没用了；有一个"公司行政费用"的部门破坏规则了
+	AND r.DES_BILLTYPE IS NULL 
+	AND bd_inoutbusiclass.code NOT IN ('67')	
+	AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+	AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+UNION ALL 
+-- 借款单
+SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END  部门名称,bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq,9,2) djrq_day,er_busitem.amount 费用发生额,er_busitem.BBYE 费用余额, er_bxzb.djbh djbh 
+FROM er_busitem er_busitem 
+LEFT JOIN er_reimtype er_reimtype ON er_busitem.pk_reimtype = er_reimtype.pk_reimtype 
+LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.szxmid = bd_inoutbusiclass.pk_inoutbusiclass 
+INNER JOIN ER_JKZB er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+LEFT JOIN org_dept org_dept ON er_bxzb.deptid = org_dept.pk_dept 
+WHERE er_busitem.dr = 0	
+	AND er_busitem.BBYE <> 0
+	AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+	AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+UNION ALL
+-- 凭证取费用科目发生汇总
+SELECT CASE WHEN org_dept_v.def3 = '~' THEN  org.name ELSE org_dept_v.def3 END  组织名称,CASE WHEN org_dept_v.def4 = '~' THEN  org_dept_v.name ELSE org_dept_v.def4 END  部门名称,accsubj.code 收支项目编码, a.name 收支项目名称,CASE WHEN a.def1 = '~' THEN a.name ELSE a.def1 END  预算项目, CASE WHEN a.def2 = '~' THEN a.name ELSE a.def2 END  预算控制项目, gl.yearv 年度, gl.periodv 月份, substr(glvou.prepareddate, 1, 10) 单据日期, substr(glvou.prepareddate,9,2) djrq_day,CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END 费用发生额,CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END 费用余额, gl.yearv||gl.periodv||glvou.num  djbh 
+FROM gl_docfree1 
+INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
+INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org 
+INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
+Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
+INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
+inner join sm_user smuser on smuser.cuserid=glvou.billmaker
+WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
+	AND nvl(org_dept_v.dr,0)=0 AND nvl(gl_docfree1.dr,0)=0
+	AND nvl(org.dr,0)=0 AND nvl(grp.dr,0)=0
+	AND nvl(gl.dr,0)=0 AND nvl(accsubj.dr,0)=0
+	AND glvou.discardflag='N'
+	AND gl.yearv>=2015 AND gl.periodv > '00' AND gl.periodv <= '12'
+	AND substr(accsubj.code,1,4) IN ('5101','5301','6601','6602') 
+	AND substr(glvou.prepareddate, 1, 10) >= '${STARTDATE}'
+	AND substr(glvou.prepareddate, 1, 10) <= '${ENDDATE}'
+;
+-- 费用分摊表
+SELECT * FROM er_cshare_detail
+;
+
+
+
+;
+SELECT DISTINCT  t.dr,t.*--,substr(t.src_relationid,1,20)
+FROM fip_relation t
+WHERE t.dr = 0 
+	AND t. src_system  = 'erm'
+	AND t.SRC_FREEDEF1 = '264X2023081001726'
+--	AND t.src_relationid = '1001B31000000000ONJG_1'
+--ORDER BY t.src_relationid
+;
+SELECT t.DJBH  FROM ER_BXZB t WHERE t.PK_JKBX = '1001B31000000000ONJG'
+
+;
+--DROP TABLE budget_fee_2024;
+CREATE TABLE budget_fee_2024 (
+	id NUMBER PRIMARY KEY,
+    category_class VARCHAR2(20) NOT NULL,
+    cost_center VARCHAR2(20) NOT NULL,
+    business_unit VARCHAR2(20) NOT NULL,
+    division VARCHAR2(20) NOT NULL,
+    dept VARCHAR2(30) NOT NULL,    
+    category VARCHAR2(50) NOT NULL,
+    iyear VARCHAR2(4) NOT NULL,    
+    imonth VARCHAR2(2) NOT NULL,
+    amount NUMBER(10, 2) NOT NULL,
+    tatol_amount NUMBER(10, 2) NOT NULL
+);
+CREATE SEQUENCE budget_fee_2024_id_seq
+START WITH 1
+INCREMENT BY 1
+;
+CREATE TRIGGER budget_fee_2024_id_seq
+BEFORE INSERT ON budget_fee_2024
+FOR EACH ROW
+BEGIN
+    SELECT budget_fee_2024_id_seq.NEXTVAL INTO :new.id FROM dual;
+END;
+
+WITH X AS (
+		-- 报销单
+		SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END 部门名称, bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq,9,2) djrq_day,er_busitem.amount 费用发生额,er_busitem.BBYE 费用余额,er_bxzb.DJBH 
+		FROM er_busitem er_busitem 
+		LEFT JOIN er_reimtype er_reimtype ON er_busitem.pk_reimtype = er_reimtype.pk_reimtype 
+		LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.szxmid = bd_inoutbusiclass.pk_inoutbusiclass 
+		INNER JOIN er_bxzb er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+		LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+		LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+		LEFT JOIN org_dept org_dept ON er_bxzb.fydeptid  = org_dept.pk_dept 
+		LEFT JOIN fip_relation r ON er_bxzb.PK_JKBX = SUBSTR(r.src_relationid,1,20) AND r.src_system  = 'erm' AND er_bxzb.DJBH = r.SRC_FREEDEF1 
+		WHERE er_busitem.dr = 0 -- er_bxzb.fydeptid <> '1001B31000000003C75T' -- 公共费用分摊部门的报销单到结转单取数;这个条件没用了；有一个"公司行政费用"的部门破坏规则了
+			AND r.DES_BILLTYPE IS NULL 
+			AND bd_inoutbusiclass.code NOT IN ('67')
+			AND er_bxzb.PK_JKBX NOT IN (SELECT DISTINCT pk_jkbx FROM er_cshare_detail )
+			AND org_financeorg.NAME = '保龄宝生物股份有限公司本部'
+			AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+			AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+		UNION ALL 
+		-- 费用结转
+		SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END  部门名称,bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq, 9, 2) djrq_day, er_busitem.assume_amount  费用发生额,er_busitem.assume_amount  费用余额,
+		 er_bxzb.djbh djbh 
+		FROM er_cshare_detail er_busitem 
+		LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.pk_iobsclass  = bd_inoutbusiclass.pk_inoutbusiclass 
+		INNER JOIN er_bxzb er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+		LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+		LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+		LEFT JOIN org_dept org_dept ON er_busitem.assume_dept = org_dept.pk_dept -- 费用承担部门
+		LEFT JOIN fip_relation r ON er_bxzb.PK_JKBX = SUBSTR(r.src_relationid,1,20) AND r.src_system  = 'erm' AND er_bxzb.DJBH = r.SRC_FREEDEF1 
+		WHERE er_busitem.dr = 0 --er_bxzb.fydeptid = '1001B31000000003C75T' -- 公共费用分摊部门的报销单到结转单取数;这个条件没用了；有一个"公司行政费用"的部门破坏规则了
+			AND r.DES_BILLTYPE IS NULL 
+			AND bd_inoutbusiclass.code NOT IN ('67')	
+			AND org_financeorg.NAME = '保龄宝生物股份有限公司本部'
+			AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+			AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+		UNION ALL 
+		-- 借款单
+		SELECT  CASE WHEN org_dept.def3 = '~' THEN  org_financeorg.name ELSE org_dept.def3 END  组织名称,CASE WHEN org_dept.def4 = '~' THEN  org_dept.name ELSE org_dept.def4 END  部门名称,bd_inoutbusiclass.code 收支项目编码, bd_inoutbusiclass.name 收支项目名称,CASE WHEN bd_inoutbusiclass.def1 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def1 END  预算项目, CASE WHEN bd_inoutbusiclass.def2 = '~' THEN bd_inoutbusiclass.name ELSE bd_inoutbusiclass.def2 END  预算控制项目, substr(er_bxzb.djrq, 1, 4) 年度, substr(er_bxzb.djrq, 6, 2) 月份, substr(er_bxzb.djrq, 1, 10) 单据日期, substr(er_bxzb.djrq,9,2) djrq_day,er_busitem.amount 费用发生额,er_busitem.BBYE 费用余额, er_bxzb.djbh djbh 
+		FROM er_busitem er_busitem 
+		LEFT JOIN er_reimtype er_reimtype ON er_busitem.pk_reimtype = er_reimtype.pk_reimtype 
+		LEFT JOIN bd_inoutbusiclass bd_inoutbusiclass ON er_busitem.szxmid = bd_inoutbusiclass.pk_inoutbusiclass 
+		INNER JOIN ER_JKZB er_bxzb ON er_busitem.pk_jkbx = er_bxzb.pk_jkbx 
+		LEFT JOIN org_financeorg org_financeorg ON er_bxzb.pk_org = org_financeorg.pk_financeorg 
+		LEFT JOIN org_group org_group ON org_financeorg.pk_group = org_group.pk_group 
+		LEFT JOIN org_dept org_dept ON er_bxzb.deptid = org_dept.pk_dept 
+		WHERE er_busitem.dr = 0	
+			AND er_busitem.BBYE <> 0
+			AND org_financeorg.NAME = '保龄宝生物股份有限公司本部'
+			AND substr(er_bxzb.djrq, 1, 10) >= '${STARTDATE}'
+			AND substr(er_bxzb.djrq, 1, 10) <= '${ENDDATE}'
+		UNION ALL
+		-- 凭证取费用科目发生汇总
+		SELECT CASE WHEN org_dept_v.def3 = '~' THEN  org.name ELSE org_dept_v.def3 END  组织名称,CASE WHEN org_dept_v.def4 = '~' THEN  org_dept_v.name ELSE org_dept_v.def4 END  部门名称,accsubj.code 收支项目编码, a.name 收支项目名称,CASE WHEN a.def1 = '~' THEN a.name ELSE a.def1 END  预算项目, CASE WHEN a.def2 = '~' THEN a.name ELSE a.def2 END  预算控制项目, gl.yearv 年度, gl.periodv 月份, substr(glvou.prepareddate, 1, 10) 单据日期, substr(glvou.prepareddate,9,2) djrq_day,CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END 费用发生额,CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END 费用余额, gl.yearv||gl.periodv||glvou.num  djbh 
+		FROM gl_docfree1 
+		INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
+		INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org 
+		INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
+		Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
+		INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
+		INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+		INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
+		inner join sm_user smuser on smuser.cuserid=glvou.billmaker
+		WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
+			AND nvl(org_dept_v.dr,0)=0 AND nvl(gl_docfree1.dr,0)=0
+			AND nvl(org.dr,0)=0 AND nvl(grp.dr,0)=0
+			AND nvl(gl.dr,0)=0 AND nvl(accsubj.dr,0)=0
+			AND glvou.discardflag='N'
+			AND org.NAME = '保龄宝生物股份有限公司本部'
+			AND gl.yearv>=2015 AND gl.periodv > '00' AND gl.periodv <= '12'
+			AND substr(accsubj.code,1,4) IN ('5101','5301','6601','6602') 
+			AND substr(glvou.prepareddate, 1, 10) >= '${STARTDATE}'
+			AND substr(glvou.prepareddate, 1, 10) <= '${ENDDATE}'
+	)
+SELECT T.CATEGORY_CLASS, T.COST_CENTER, T.BUSINESS_UNIT, T.DIVISION, T.DEPT, T.CATEGORY, SUM(T.AMOUNT) AS AMOUNT ,SUM(NVL(X.费用余额,0))
+FROM BUDGET_FEE_2024 T
+LEFT JOIN X ON T.CATEGORY = X.预算项目 AND T.DEPT = X.部门名称
+WHERE T.IYEAR = substr('${ENDDATE}',1,4)
+	AND T.IMONTH <= substr('${ENDDATE}',6,2)
+GROUP BY T.CATEGORY_CLASS, T.COST_CENTER, T.BUSINESS_UNIT, T.DIVISION, T.DEPT, T.CATEGORY
+
+;
+;
