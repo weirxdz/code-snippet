@@ -3,6 +3,7 @@ select a.pk_org,b.code,b.name,a.year 年度,a.period 期间,c.name 凭证类别,
 a.CREATOR 创建人ID,d.USER_NAME 创建人,a.PK_PREPARED 制单人id,e.user_name 制单人,a.MODIFIER 修改人ID,F.user_name 修改人,
 a.PK_CHECKED 审核人ID，g.user_name 审核人,a.PK_MANAGER 记账人id,h.user_name 记账人
 from Gl_voucher a
+inner join gl_detail
 left join org_orgs b on b.pk_org=A.PK_ORG
 left join bd_vouchertype c on c.pk_vouchertype=a.pk_vouchertype
 left join sm_user d on a.CREATOR=D.CUSERID
