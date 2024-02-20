@@ -39,7 +39,7 @@ INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org
 INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
 Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
 INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
-INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account   AND accsubj.PK_ACCCHART = A.PK_ACCCHART
 INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
 inner join sm_user smuser on smuser.cuserid=glvou.billmaker
 WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
@@ -59,7 +59,7 @@ INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org
 INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
 Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
 INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
-INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account   AND accsubj.PK_ACCCHART = A.PK_ACCCHART
 INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
 inner join sm_user smuser on smuser.cuserid=glvou.billmaker
 WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
@@ -134,7 +134,7 @@ INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org
 INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
 Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
 INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
-INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account   AND accsubj.PK_ACCCHART = A.PK_ACCCHART
 INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
 inner join sm_user smuser on smuser.cuserid=glvou.billmaker
 WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
@@ -249,7 +249,7 @@ WITH X AS (
 		INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
 		Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
 		INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
-		INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account
+		INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account   AND accsubj.PK_ACCCHART = A.PK_ACCCHART 
 		INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
 		inner join sm_user smuser on smuser.cuserid=glvou.billmaker
 		WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
@@ -271,4 +271,57 @@ WHERE T.IYEAR = substr('${ENDDATE}',1,4)
 GROUP BY T.CATEGORY_CLASS, T.COST_CENTER, T.BUSINESS_UNIT, T.DIVISION, T.DEPT, T.CATEGORY
 
 ;
+-- 会计科目，用自定义项1 记录预算项目 ，用自定义项2 记录预算控制项目
+select a.pk_account 科目主键,c.code 科目编码,a.name 科目名称,a.def1 预算项目,a.def2 预算控制项目
+from bd_account c
+left join bd_accasoa a on c.pk_account = a.pk_account
+where c.pk_accchart = '0001Z01000ACCCHART01' and a.pk_accchart = '0001Z01000ACCCHART01' AND substr(c.code,1,4) IN ('5101','5301','6601','6602')
+UNION ALL 
+select a.pk_account 科目主键,c.code 科目编码,a.name 科目名称,a.def1 预算项目,a.def2 预算控制项目
+from bd_account c
+left join bd_accasoa a on c.pk_account = a.pk_account
+where c.pk_accchart = '0001Z01000ACCCHART01' and a.pk_accchart = '0001Z01000ACCCHART01' AND c.code = '500104'-- 车间领用的机物料
 ;
+-- 收支项目，用自定义项1 记录预算项目 ，用自定义项2 记录预算控制项目
+select t.pk_inoutbusiclass, t.code, t.name,  t.def1 预算项目, t.def2 预算控制项目
+from bd_inoutbusiclass t
+order by t.code
+;
+-- 预算部门，取财务组织下的部门,用自定义项3记录预算部门
+select d.PK_DEPT 部门主键,s.code 组织编码, s.name 组织名称,d.code 部门编码, d.name 部门名称,d.def3 预算组织,d.def4 预算部门
+from org_dept d
+left join org_orgs s on d.pk_org = s.pk_org
+where s.code = 'blb01'
+;
+SELECT ID,CATEGORY_CLASS, COST_CENTER, BUSINESS_UNIT, DIVISION, DEPT, CATEGORY, IYEAR, IMONTH, AMOUNT, TATOL_AMOUNT
+FROM BUDGET_FEE_2024
+;
+SELECT ID,CATEGORY_CLASS, COST_CENTER, BUSINESS_UNIT, DIVISION, DEPT, CATEGORY, IYEAR, IMONTH, AMOUNT, TATOL_AMOUNT
+FROM BUDGET_FEE_2024
+WHERE 1=1 ${if(len(CATEGORY_CLASS) == 0,""," and CATEGORY_CLASS = '" + CATEGORY_CLASS + "'")}${if(len(COST_CENTER) == 0,""," and COST_CENTER = '" + COST_CENTER + "'")}${if(len(BUSINESS_UNIT) == 0,""," and BUSINESS_UNIT = '" + BUSINESS_UNIT + "'")}${if(len(DIVISION) == 0,""," and DIVISION = '" + DIVISION + "'")}${if(len(DEPT) == 0,""," and DEPT = '" + DEPT + "'")}${if(len(CATEGORY) == 0,""," and CATEGORY = '" + CATEGORY + "'")}${if(len(IYEAR) == 0,""," and IYEAR = '" + IYEAR + "'")}${if(len(IMONTH) == 0,""," and IMONTH = '" + IMONTH + "'")}
+ORDER BY CATEGORY_CLASS, COST_CENTER, BUSINESS_UNIT, DIVISION, DEPT, CATEGORY, IYEAR, IMONTH
+;
+
+
+		-- 凭证取费用科目发生汇总
+		SELECT CASE WHEN org_dept_v.def3 = '~' THEN  org.name ELSE org_dept_v.def3 END  orgname,CASE WHEN org_dept_v.def4 = '~' THEN  org_dept_v.name ELSE org_dept_v.def4 END  deptname,accsubj.code acccode, a.name accname,CASE WHEN a.def1 = '~' THEN a.name ELSE a.def1 END  ysxm, CASE WHEN a.def2 = '~' THEN a.name ELSE a.def2 END  yskzxm, gl.yearv iyear, gl.periodv imonth, substr(glvou.prepareddate, 1, 10) idate, CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END debitamount,CASE WHEN accsubj.code IN ('221101','22110301','22110302','22110303','22110304','22110305','22110306') THEN gl.creditamount ELSE gl.debitamount  END debitamount_ye, gl.yearv||gl.periodv||glvou.num  djbh ,glvou.explanation ,A.PK_ACCASOA ,A.PK_ACCCHART ,A.PK_ACCOUNT ,accsubj.PK_ACCCHART 
+		FROM gl_docfree1 
+		INNER JOIN org_dept_v  ON gl_docfree1.f1=org_dept_v.pk_dept 
+		INNER JOIN org_orgs_v org ON org.pk_org=org_dept_v.pk_org 
+		INNER JOIN org_group grp ON grp.pk_group=gl_docfree1.pk_group AND grp.pk_group=org_dept_v.pk_group
+		Inner JOIN gl_detail gl ON gl.assid=gl_docfree1.assid
+		INNER JOIN bd_account accsubj ON accsubj.pk_account=gl.pk_account
+		INNER JOIN bd_accasoa a ON accsubj.PK_ACCOUNT = a.pk_account  AND accsubj.PK_ACCCHART = A.PK_ACCCHART
+		INNER JOIN gl_voucher glvou ON glvou.pk_voucher=gl.pk_voucher
+		inner join sm_user smuser on smuser.cuserid=glvou.billmaker
+		WHERE gl_docfree1.f1<>'NN/A' AND gl_docfree1.f1<>'~'
+			AND nvl(org_dept_v.dr,0)=0 AND nvl(gl_docfree1.dr,0)=0
+			AND nvl(org.dr,0)=0 AND nvl(grp.dr,0)=0
+			AND nvl(gl.dr,0)=0 AND nvl(accsubj.dr,0)=0
+			AND glvou.discardflag='N'
+			AND org.NAME = '保龄宝生物股份有限公司本部'
+			AND gl.yearv>=2015 AND gl.periodv > '00' AND gl.periodv <= '12'
+			AND accsubj.code IN ('510111','510117') 
+			AND gl.debitamount <> 0
+			AND substr(glvou.prepareddate, 1, 10) >= '${STARTDATE}'
+			AND substr(glvou.prepareddate, 1, 10) <= '${ENDDATE}'
