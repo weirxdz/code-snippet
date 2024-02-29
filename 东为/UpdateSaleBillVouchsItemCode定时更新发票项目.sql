@@ -9,7 +9,7 @@ BEGIN
     DECLARE v_cursor CURSOR FOR
     SELECT distinct SBVID, cItemCode
     FROM SaleBillVouchs
-    WHERE cItemCode IS NULL
+    WHERE cItemCode IS NULL or cItemCode = ''
     
 
     -- 打开游标
