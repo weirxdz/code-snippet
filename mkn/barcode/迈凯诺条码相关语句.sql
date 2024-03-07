@@ -28,3 +28,17 @@ CREATE TABLE BARCODE_DETAILS (
     details NVARCHAR(120),
     FOREIGN KEY (barcodeID) REFERENCES barcodeinfo_h(ID)
 );
+
+SELECT t.detailsID ,t.barcodeID ,t.ccode ,t.packetDate ,t.CINVCODE ,b.产品编码 ,b.产品名称 ,b.规格型号 ,b.计量单位 ,b.数量 
+FROM BARCODE_DETAILS t
+LEFT JOIN barcodeinfo_b b ON t.barcodeID = b.ID 
+WHERE t.ccode = '${ccode}'
+;
+
+SELECT b.产品编码 FROM BARCODE_DETAILS t LEFT JOIN barcodeinfo_b b ON t.barcodeID = b.ID WHERE t.ccode = '${ccode}' AND B.产品编码 = ''
+;
+SELECT t.detailsID ,t.barcodeID ,t.ccode ,t.packetDate ,t.CINVCODE ,b.产品编码 ,b.产品名称 ,b.规格型号 ,b.计量单位 ,b.数量 
+FROM BARCODE_DETAILS t
+LEFT JOIN barcodeinfo_b b ON t.barcodeID = b.ID
+INNER JOIN UFDATA_100_2024.dbo.Inventory i ON t.CINVCODE = i.cInvCode 
+WHERE i.cInvDefine2 = 'P'
