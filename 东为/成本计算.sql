@@ -8,28 +8,54 @@ LEFT JOIN bom_bom bb ON ob.BomId = bb.BomId
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode 
 ;
 -- 检查生产入库单的部门是否正确
-SELECT h.ID ,h.cCode ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 
+SELECT h.ID ,h.cCode,h.cRdCode,t.cRdName  ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
 FROM  rdrecord10 h 
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode
-ORDER BY h.cDepCode 
+LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31'
+ORDER BY h.dVeriDate 
 ;
 -- 检查材料出库单的部门是否正确
-SELECT h.ID ,h.cCode ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 
+SELECT h.ID ,h.cCode,h.cRdCode,t.cRdName  ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
 FROM  rdrecord11 h 
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode
-ORDER BY h.cDepCode 
+LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31'
+ORDER BY d.cDepCode ,h.dVeriDate 
+;
+--
+--SELECT h.ID ,h.cCode,h.cRdCode,t.cRdName  ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
+--FROM  rdrecord11 h 
+--LEFT JOIN Department d ON h.cDepCode = d.cDepCode
+--LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+--WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31' AND h.cDepCode = '0605'
+--ORDER BY d.cDepCode ,h.dVeriDate 
+--;
+--UPDATE rdrecord11 SET cDepCode = '0602' WHERE id IN (1000006828,1000006830)
+--;
+-- 检查其他入库单的部门是否正确
+SELECT h.ID ,h.cCode ,h.cRdCode,t.cRdName ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
+FROM  rdrecord08 h 
+LEFT JOIN Department d ON h.cDepCode = d.cDepCode
+LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31'
+ORDER BY h.dVeriDate 
 ;
 -- 检查其他出库单的部门是否正确
-SELECT h.ID ,h.cCode ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 
+SELECT h.ID ,h.cCode ,h.cRdCode,t.cRdName  ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
 FROM  rdrecord09 h 
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode
-ORDER BY h.cDepCode 
+LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31'
+ORDER BY h.dVeriDate 
 ;
 -- 检查销售出库单的部门是否正确
-SELECT h.ID ,h.cCode ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 
+SELECT h.ID ,h.cCode ,h.cRdCode,t.cRdName ,d.cDepCode ,d.cDepName ,d.bDepEnd ,h.cMemo ,h.cDefine11 ,h.cDefine12 ,h.dDate ,h.dVeriDate 
 FROM  rdrecord32 h 
 LEFT JOIN Department d ON h.cDepCode = d.cDepCode
-ORDER BY h.cDepCode 
+LEFT JOIN Rd_Style t ON h.cRdCode = t.cRdCode 
+WHERE h.dDate >= '2024-01-01' AND h.dDate <= '2024-01-31'
+ORDER BY h.dVeriDate 
 ;
 SELECT h.cCode ,b.cInvCode,b.cBatch ,B.iQuantity  ,b.iMPoIds 
 FROM rdrecords11 b
@@ -264,3 +290,17 @@ FROM 焊接材料明细表 t
 WHERE 1=1 -- t.年度 = year('${月初日期}') AND t.月份 = MONTH('${月末日期}')
 	AND t.部门名称 IN ('人防门下料机加班组','人防门焊接班组','人防门预制班组','人防通风班组','消防通风班组','消防风机风阀班组')
 group by t.部门编码, t.部门名称
+;
+
+select b.bomid,define1,define2,define3,ParentId ,BP.InvCode 
+from bom_bom b 
+left join bom_parent p on b.bomid=p.bomid
+LEFT JOIN bas_part bp ON p.ParentId = BP.PartId 
+where define1 is null and version=20
+;
+SELECT b.BomId ,b.*
+FROM Bom_opcomponent b
+LEFT JOIN bom_bom h ON b.BomId = h.BomId 
+LEFT JOIN bom_parent bp ON h.BomId = bp.BomId 
+LEFT JOIN bas_part bp2 ON bp.ParentId = bp2.PartId 
+WHERE bp2.InvCode in( '5102080202','5101010115')
