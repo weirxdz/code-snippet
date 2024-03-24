@@ -1,0 +1,26 @@
+帐表是通过复杂的sql查询和存储过程来实现的，其数据来源于多个源数据表。 对于各个模块的不同帐表的数据来源可通过如下方法获知：
+1、查看帮助中表体栏目说明或数据来源信息，如销售综合统计表 『发票号、开票数量、开票金额、开票价税合计、开票折扣：根据销售发票记录带入； 出库单号、出库数量：根据销售出库单记录带入； 收款单号、结算方式、收款金额：根据收款单记录带入；』 此时可知数据来源于数据表salebillvouch/s(发票)、rdrecord/s(出库单)、Ap_CloseBill/s(收付款单)；
+
+2、对于各个数据表的表名和字段信息可通过查询数据字典获取： 例如 select * from rpt_itmdef where tabledef='销售发票主表'
+
+3、对帐表查询过程中，可使用sql事件跟踪器进行实时跟踪，获取组建帐表的sql查询语句，即可获得帐表各列数值的数据来源。一般帐表生成过程中需多次构建临时表，但数据源头来源于各源数据表。
+
+
+update so_somain set cdefine1=replace(cdefine1,char(10),＇＇) where charindex(char(10),cdefine1)>0
+update so_somain set cdefine2=replace(cdefine2,char(10),＇＇) where charindex(char(10),cdefine2)>0
+update so_somain set cdefine3=replace(cdefine3,char(10),＇＇) where charindex(char(10),cdefine3)>0
+update so_somain set cdefine10=replace(cdefine10,char(10),＇＇) where charindex(char(10),cdefine10)>0
+update so_somain set cdefine11=replace(cdefine11,char(10),＇＇) where charindex(char(10),cdefine11)>0
+update so_somain set cdefine12=replace(cdefine12,char(10),＇＇) where charindex(char(10),cdefine12)>0
+update so_somain set cdefine13=replace(cdefine13,char(10),＇＇) where charindex(char(10),cdefine13)>0
+
+update so_somain set cdefine1=replace(cdefine1,char(13),＇＇) where charindex(char(13),cdefine1)>0
+update so_somain set cdefine2=replace(cdefine2,char(13),＇＇) where charindex(char(13),cdefine2)>0
+update so_somain set cdefine3=replace(cdefine3,char(13),＇＇) where charindex(char(13),cdefine3)>0
+update so_somain set cdefine10=replace(cdefine10,char(13),＇＇) where charindex(char(13),cdefine10)>0
+update so_somain set cdefine11=replace(cdefine11,char(13),＇＇) where charindex(char(13),cdefine11)>0
+update so_somain set cdefine12=replace(cdefine12,char(13),＇＇) where charindex(char(13),cdefine12)>0
+update so_somain set cdefine13=replace(cdefine13,char(13),＇＇) where charindex(char(13),cdefine13)>0
+
+update so_somain set cmemo=replace(cmemo,char(13),＇＇) where charindex(char(13),cmemo)>0
+update so_somain set cmemo=replace(cmemo,char(10),＇＇) where charindex(char(10),cmemo)>0
