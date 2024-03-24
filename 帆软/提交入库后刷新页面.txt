@@ -1,0 +1,16 @@
+到货数量与订单数量差额是多少的时候关闭订单
+
+报检是怎么报检的
+
+原浆酒和调味酒的采购订单，建议一单只有一个存货档案
+
+
+20230810
+提交入库后刷新页面，移动端看看能否解决
+
+点击模板>模板 Web  属性>填报页面设置，然后在事件设置中添加填报成功事件，在 JS 脚本中输入：
+window.location.reload()；
+或者
+window.location.href = window.location.href;
+
+JS实现当前页刷新-https://help.fanruan.com/finereport/doc-view-1394.html
