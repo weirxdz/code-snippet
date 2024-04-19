@@ -43,3 +43,44 @@ inner join Inventory i on b.cInvCode = i.cInvCode
 where 1=1 
 	and b.cDefine28 is not null
 ;
+
+-- 采购订单
+select b.cDefine28 ,b.cInvCode,v.cVenCode ,v.cVenName ,sum(COALESCE(b.iQuantity,0)) 采购订单数量,sum(COALESCE(b.freceivedqty,0))  合格品入库数量 ,sum(COALESCE(b.iInvQTY,0))  累计发票数量  
+from PO_Podetails b
+inner join PO_Pomain h on b.POID = h.POID 
+inner join Vendor v on h.cVenCode = v.cVenCode 
+inner join Inventory i on b.cInvCode = i.cInvCode
+where 1=1 
+	and b.cDefine28 is not NULL
+GROUP BY b.cDefine28 ,b.cInvCode,v.cVenCode ,v.cVenName
+;
+-- moc.Qty 需求量 是考虑了损耗率的量
+select OD.DEFINE28 生产计划号,p.cInvCode 产品编码,p.cInvName 产品名称,p.cInvStd 产品规格,O.MoCode 生产订单号,od.Status ,CASE od.Status WHEN 1 THEN '未审核' WHEN 2 THEN '锁定' WHEN 3 THEN '审核' WHEN 4 THEN '关闭' ELSE '' end 订单状态 ,COALESCE(od.Qty,0) 计划生产数量,COALESCE(od.QualifiedInQty,0) 生产入库数量,m.cInvCode 包材编码,m.cInvName 包材名称,m.cInvStd 包材规格,m.cInvCCode ,PAV.请购数量,PO.cVenCode 供应商编码,PO.cVenName 供应商名称,PO.采购订单数量 ,PO.合格品入库数量 ,PO.累计发票数量
+from mom_order o
+inner join mom_morder morder on o.MoId = morder.MoId
+left join mom_orderdetail od on o.MoId = od.MoId
+inner join Inventory p on od.InvCode = p.cInvCode
+left join mom_moallocate moc on od.MoDId = moc.MoDId
+left join Inventory AS M ON moc.InvCode = M.cInvCode
+left join InventoryClass ic on m.cInvCCode = ic.cInvCCode 
+LEFT JOIN (-- 请购单
+		select b.cDefine28 ,b.cInvCode ,SUM(COALESCE(b.fQuantity,0))  请购数量
+		from PU_AppVouchs b
+		inner join PU_AppVouch h on b.ID = h.ID 
+		where 1=1
+			and b.cDefine28 is not NULL
+		GROUP BY b.cDefine28 ,b.cInvCode
+		) PAV ON OD.DEFINE28 = PAV.cDefine28 AND m.cInvCode = PAV.cInvCode
+LEFT JOIN (-- 采购订单
+		select b.cDefine28 ,b.cInvCode,v.cVenCode ,v.cVenName ,sum(COALESCE(b.iQuantity,0)) 采购订单数量,sum(COALESCE(b.freceivedqty,0))  合格品入库数量 ,sum(COALESCE(b.iInvQTY,0))  累计发票数量  
+		from PO_Podetails b
+		inner join PO_Pomain h on b.POID = h.POID 
+		inner join Vendor v on h.cVenCode = v.cVenCode 
+		inner join Inventory i on b.cInvCode = i.cInvCode
+		where 1=1 
+			and b.cDefine28 is not NULL
+		GROUP BY b.cDefine28 ,b.cInvCode,v.cVenCode ,v.cVenName
+		) PO ON OD.DEFINE28 = PO.cDefine28 AND m.cInvCode = PO.cInvCode
+WHERE 1=1
+	and OD.DEFINE28 IS NOT NULL
+	and LEFT(m.cInvCCode,2) = '02'
