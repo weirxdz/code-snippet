@@ -1,4 +1,4 @@
-USE ecology;
+
 ALTER TRIGGER [dbo].[CopyData_83To_saleorderdetails]
 ON [dbo].[formtable_main_83]
 AFTER UPDATE
@@ -59,7 +59,7 @@ BEGIN
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -79,11 +79,11 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -103,11 +103,11 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -127,11 +127,11 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -151,7 +151,7 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
@@ -179,7 +179,7 @@ BEGIN
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -199,11 +199,11 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
 						SELECT [mainid] as [mainid]
 								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
+								,[cplb] as [cplb]
 								,CONCAT('1','-',max([id])) as [cpqdzbid]
 								,[u8cpbm] as [u8cpbm]
 								,[cpmc] as [cpmc]
@@ -223,9 +223,9 @@ BEGIN
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
-						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh]);
+						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh]);
           END
         END
     END   
 END;
-USE master;
+
