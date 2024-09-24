@@ -8,7 +8,7 @@ WITH details AS (
   where b.BILLCODE = 'QC' and B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-    ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+     ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的到货单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
@@ -17,7 +17,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-   ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的产成品入库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
@@ -26,7 +26,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-   ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+--    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的其他入库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
@@ -35,7 +35,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-   ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的材料出库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,0 QUANTITY_IN,0 AQUANTITY_IN,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_OUT,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_OUT
@@ -44,7 +44,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-   ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的其他出库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,0 QUANTITY_IN,0 AQUANTITY_IN,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_OUT,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_OUT
@@ -53,7 +53,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
-   ${if(len(v_inventory_list)==0,"", " AND h.WINECODE IN ('" + v_inventory_list + "')")}
+    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
    ),
    mlist AS (
    SELECT DISTINCT  t.JARSCODE ,t.WINECODE FROM details t
@@ -77,7 +77,7 @@ WITH details AS (
    GROUP BY t.JARSCODE ,t.WINECODE   
    ),
    rz AS (
-   select m.WINECODE,p.cname ,p.Inventory_category,COALESCE(qc.qc_QUANTITY ,0) AS qc_QUANTITY,COALESCE(qc.qc_AQUANTITY ,0) AS qc_AQUANTITY,
+   select m.JARSCODE,m.WINECODE,p.cname ,p.Inventory_category,COALESCE(qc.qc_QUANTITY ,0) AS qc_QUANTITY,COALESCE(qc.qc_AQUANTITY ,0) AS qc_AQUANTITY,
    COALESCE(income.in_QUANTITY ,0) AS in_QUANTITY,COALESCE(income.in_AQUANTITY ,0) AS in_AQUANTITY,
    COALESCE(outgo.out_QUANTITY ,0) AS out_QUANTITY,COALESCE(outgo.out_AQUANTITY ,0) AS out_AQUANTITY,
    COALESCE(qc.qc_QUANTITY ,0) + COALESCE(income.in_QUANTITY ,0) - COALESCE(outgo.out_QUANTITY ,0) AS jc_QUANTITY,
@@ -91,8 +91,10 @@ WITH details AS (
    LEFT JOIN income ON m.WINECODE = income.WINECODE AND m.jarscode = income.jarscode
    LEFT JOIN outgo ON m.WINECODE = outgo.WINECODE AND m.jarscode = outgo.jarscode
    )
-   select rz.jarscode ,rz.WINECODE,rz.cname ,rz.Inventory_category,rz.Receiving,rz.dispatch,rz.Stock
-	  from rz 
-    where  rz.Receiving > 0 and rz.Stock <> 0 or rz.dispatch > 0 and rz.Stock <> 0 or rz.Receiving = 0 and rz.dispatch = 0 and rz.Stock = 0 
-
-
+   select jar.ccode ,rz.WINECODE,rz.cname ,rz.Inventory_category,rz.Receiving,rz.dispatch,rz.Stock,rz.*
+	  from fr_rw_wine_jars jar  
+	  left join rz  on jar.ccode = rz.jarscode and rz.Stock <> 0
+    where -- (rz.Receiving <> 0 and rz.Stock <> 0 or rz.dispatch <> 0 and rz.Stock <> 0 or rz.Receiving = 0 and rz.dispatch = 0 and rz.Stock = 0) AND 
+     rz.jarscode  <> '0'
+--     	and  rz.jarscode = '10070002'    
+    	and  jar.cwhcode<>'8888'
