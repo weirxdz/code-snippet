@@ -26,7 +26,7 @@ WITH details AS (
   where B.DR = 0 
     -- AND b.DDATE < '${v_start_date}' 
     AND b.DDATE <=  '${v_end_date}' 
---    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
+    ${if(len(v_inventory_list)==0,"", " AND b.PRODUCTCODE IN ('" + v_inventory_list + "')")}
   UNION ALL
   -- 查询截至日期之前的其他入库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
@@ -91,10 +91,11 @@ WITH details AS (
    LEFT JOIN income ON m.WINECODE = income.WINECODE AND m.jarscode = income.jarscode
    LEFT JOIN outgo ON m.WINECODE = outgo.WINECODE AND m.jarscode = outgo.jarscode
    )
-   select jar.ccode ,rz.WINECODE,rz.cname ,rz.Inventory_category,rz.Receiving,rz.dispatch,rz.Stock,rz.*
-	  from fr_rw_wine_jars jar  
-	  left join rz  on jar.ccode = rz.jarscode and rz.Stock <> 0
+   select jar.ccode ,rz.WINECODE,rz.cname ,rz.Inventory_category,rz.Receiving,rz.dispatch,rz.Stock
+	  from rz 
+	  left join fr_rw_wine_jars jar  on rz.jarscode = jar.ccode and rz.Stock <> 0
     where -- (rz.Receiving <> 0 and rz.Stock <> 0 or rz.dispatch <> 0 and rz.Stock <> 0 or rz.Receiving = 0 and rz.dispatch = 0 and rz.Stock = 0) AND 
      rz.jarscode  <> '0'
 --     	and  rz.jarscode = '10070002'    
     	and  jar.cwhcode<>'8888'
+    ORDER BY jar.ccode ,rz.Inventory_category,rz.WINECODE
