@@ -1,0 +1,635 @@
+{
+  "errcode": 0,
+  "errmsg": "ok",
+  "template_names": [
+      {
+          "text": "U8费用报销",
+          "lang": "zh_CN"
+      },
+      {
+          "text": "",
+          "lang": "en"
+      }
+  ],
+  "template_content": {
+      "controls": [
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720775952467",
+                  "title": [
+                      {
+                          "text": "报销单号",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776914252",
+                  "title": [
+                      {
+                          "text": "申请单号",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776008157",
+                  "title": [
+                      {
+                          "text": "报销日期",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Selector",
+                  "id": "Selector-1720776024474",
+                  "title": [
+                      {
+                          "text": "是否超预算",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              },
+              "config": {
+                  "selector": {
+                      "type": "single",
+                      "options": [
+                          {
+                              "key": "option-1720776024474",
+                              "value": [
+                                  {
+                                      "text": "是",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1720776024475",
+                              "value": [
+                                  {
+                                      "text": "否",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          }
+                      ],
+                      "op_relations": [
+
+                      ],
+                      "external_option": {
+                          "use_external_option": false,
+                          "external_url": ""
+                      }
+                  }
+              }
+          },
+          {
+              "property": {
+                  "control": "Selector",
+                  "id": "Selector-1721291874237",
+                  "title": [
+                      {
+                          "text": "所属公司",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              },
+              "config": {
+                  "selector": {
+                      "type": "single",
+                      "options": [
+                          {
+                              "key": "option-1721291887209",
+                              "value": [
+                                  {
+                                      "text": "迈开诺",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887210",
+                              "value": [
+                                  {
+                                      "text": "捷顺",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887211",
+                              "value": [
+                                  {
+                                      "text": "启源",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887212",
+                              "value": [
+                                  {
+                                      "text": "华筑",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887213",
+                              "value": [
+                                  {
+                                      "text": "防火",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887214",
+                              "value": [
+                                  {
+                                      "text": "耐火",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887215",
+                              "value": [
+                                  {
+                                      "text": "四川耐火",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887216",
+                              "value": [
+                                  {
+                                      "text": "众诺",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887217",
+                              "value": [
+                                  {
+                                      "text": "江浙",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          },
+                          {
+                              "key": "option-1721291887218",
+                              "value": [
+                                  {
+                                      "text": "西部",
+                                      "lang": "zh_CN"
+                                  }
+                              ]
+                          }
+                      ],
+                      "op_relations": [
+
+                      ],
+                      "external_option": {
+                          "use_external_option": false,
+                          "external_url": ""
+                      }
+                  }
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776230773",
+                  "title": [
+                      {
+                          "text": "费用承担部门",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776286285",
+                  "title": [
+                      {
+                          "text": "业务员",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776395392",
+                  "title": [
+                      {
+                          "text": "用途",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Text",
+                  "id": "Text-1720776369372",
+                  "title": [
+                      {
+                          "text": "制单人",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              }
+          },
+          {
+              "property": {
+                  "control": "Contact",
+                  "id": "Contact-1720776339618",
+                  "title": [
+                      {
+                          "text": "业务员账号",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              },
+              "config": {
+                  "contact": {
+                      "type": "single",
+                      "mode": "user"
+                  }
+              }
+          },
+          {
+              "property": {
+                  "control": "Contact",
+                  "id": "Contact-1720776380709",
+                  "title": [
+                      {
+                          "text": "制单人账号",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              },
+              "config": {
+                  "contact": {
+                      "type": "single",
+                      "mode": "user"
+                  }
+              }
+          },
+          {
+              "property": {
+                  "control": "File",
+                  "id": "File-1721618826260",
+                  "title": [
+                      {
+                          "text": "附件",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": ""
+              },
+              "config": {
+                  "file": {
+                      "is_only_photo": 0
+                  }
+              }
+          },
+          {
+              "property": {
+                  "control": "Table",
+                  "id": "Table-1720776490937",
+                  "title": [
+                      {
+                          "text": "明细",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "placeholder": [
+                      {
+                          "text": "",
+                          "lang": "zh_CN"
+                      }
+                  ],
+                  "require": 0,
+                  "un_print": 0,
+                  "inner_id": "",
+                  "un_replace": 0,
+                  "display": 1
+              },
+              "config": {
+                  "table": {
+                      "children": [
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776524604",
+                                  "title": [
+                                      {
+                                          "text": "费用分类",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776535484",
+                                  "title": [
+                                      {
+                                          "text": "费用项目",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776971294",
+                                  "title": [
+                                      {
+                                          "text": "申请金额",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776548236",
+                                  "title": [
+                                      {
+                                          "text": "报销金额",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776558750",
+                                  "title": [
+                                      {
+                                          "text": "行备注",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776595492",
+                                  "title": [
+                                      {
+                                          "text": "费用承担部门",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          },
+                          {
+                              "property": {
+                                  "control": "Text",
+                                  "id": "Text-1720776578068",
+                                  "title": [
+                                      {
+                                          "text": "销售项目",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "placeholder": [
+                                      {
+                                          "text": "",
+                                          "lang": "zh_CN"
+                                      }
+                                  ],
+                                  "require": 0,
+                                  "un_print": 0,
+                                  "un_replace": 0,
+                                  "display": 1
+                              }
+                          }
+                      ],
+                      "stat_field": [
+
+                      ],
+                      "sum_field": [
+
+                      ],
+                      "print_format": 0
+                  }
+              }
+          }
+      ]
+  }
+}
