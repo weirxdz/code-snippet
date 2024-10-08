@@ -131,8 +131,8 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
 	   where  -- (z1.Receiving <> 0 and z1.Stock <> 0 or z1.dispatch <> 0 and z1.Stock <> 0 or z1.Receiving = 0 and z1.dispatch = 0 and z1.Stock = 0 ) and
 	    z1.jarscode <> '0'
 	)
-select  j.ccode ,z.WINECODE,z.cname ,z.Inventory_category,z.Receiving,z.dispatch,z.Stock,z.jc_quantity,z.jc_AQUANTITY
+select  j.cwhcode,j.ccode ,z.WINECODE,z.cname ,z.Inventory_category,z.Receiving,z.dispatch,z.Stock,z.jc_quantity,z.jc_AQUANTITY
 from fr_rw_wine_jars j -- 用酒坛酒罐档案表关联，能够把没有酒的空坛空罐显示出来
 left join z on j.ccode = z.jarscode and z.Stock <> 0
--- where j.ccode = '10070002'
+where j.cwhcode <> '8888'
 order by  j.ccode ,z.WINECODE,z.Stock 
