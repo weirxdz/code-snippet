@@ -1,5 +1,5 @@
 -- OA销售合同写入同步到U8的中间表主表的触发器
-CREATE TRIGGER [dbo].[CopyData_83To_saleorderdetails]
+ALTER TRIGGER [dbo].[CopyData_83To_saleorderdetails]
 ON [dbo].[formtable_main_83]
 AFTER UPDATE
 AS
@@ -226,6 +226,12 @@ BEGIN
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh]);
           END
         END
-    END   
+    END      
+    UPDATE t -- 更新产品子表上产品类别合计金额字段
+      SET t.hjje = s.hjje
+      FROM uf_saleorderdetails_dt2 t 
+      LEFT JOIN (SELECT mainid,  cplb, SUM(je) hjje 
+                FROM uf_saleorderdetails_dt2
+                GROUP BY mainid, cplb)	s ON t.mainid = s.mainid AND t.cplb = s.cplb
+      WHERE t.hjje IS NULL ;
 END;
-
