@@ -33,201 +33,108 @@ BEGIN
           -- 查询销售合同产品清单记录插入底表子表记录
           BEGIN
             INSERT INTO uf_saleorderdetails_dt2 ([mainid],[htzbid],[cplb],[cpqdzbid],[u8cpbm],[cpmc],[ggxh],[jldwbm],[iQuantity],[hsdj],[sl],[je],[sm],[sfdx],[khcpmc],[khcpgg],[tbbs],[dr])
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplx] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt2]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt4]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt6]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt8]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt10]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplx] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplx] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt12]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplx],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt14]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh])
               union all 
-						SELECT [mainid] as [mainid]
-								,max([id]) as [htzbid]
-								,[cplb] as [cplb]
-								,CONCAT('1','-',max([id])) as [cpqdzbid]
-								,[u8cpbm] as [u8cpbm]
-								,[cpmc] as [cpmc]
-								,[ggxh] as [ggxh]
-								,[dw] as [jldwbm]
-								,sum([nnum]) as [iQuantity]
-								,[hsdj] as [hsdj]
-								,[sl] as [sl]
-								,sum([je]) as [je]
-								,[sm] as [sm]
-								,[sfdx] as [sfdx]
-								,isnull([khcpmc],[cpmc]) as [khcpmc]
-								,isnull([khcpgg],[ggxh]) as [khcpgg]
-								,0 as [tbbs]
-								,0 as [dr]
+						SELECT [mainid] as [mainid],max([id]) as [htzbid],[cplb] as [cplb],CONCAT('1','-',max([id])) as [cpqdzbid],[u8cpbm] as [u8cpbm],[cpmc] as [cpmc],[ggxh] as [ggxh],[dw] as [jldwbm],sum([nnum]) as [iQuantity],[hsdj] as [hsdj],[sl] as [sl],sum([je]) as [je],[sm] as [sm],[sfdx] as [sfdx],isnull([khcpmc],[cpmc]) as [khcpmc],isnull([khcpgg],[ggxh]) as [khcpgg],0 as [tbbs],0 as [dr]
 						FROM [dbo].[formtable_main_83_dt16]
 						where [sfdx] = 1 -- 0,是;1,否 
 						and [u8cpbm] is not null  and [u8cpbm] <> ''
 						and [mainid] = @oamainid
 						GROUP BY  [mainid],[cplb],[u8cpbm] ,[cpmc],[ggxh],[dw] ,[hsdj] ,[sl] ,[sm] ,[sfdx],isnull([khcpmc],[cpmc]) ,isnull([khcpgg],[ggxh]);
           END
+          -- 查询销售合同收款条件记录插入底表子表记录
+          BEGIN
+            INSERT INTO uf_saleorderdetails_dt1 (mainid, htzbid, cplb, fktj, yqts, ywbl, fkbl, fkje, sl, bz, dr, fktjzbid,yssx)
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt1 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt3 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt3 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt7 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt9 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt11 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt13 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+            UNION all
+            SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
+            FROM formtable_main_83_dt15 d
+            LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
+            WHERE d.mainid = @oamainid
+          END 
         END
     END      
-    UPDATE t -- 更新产品子表上产品类别合计金额字段
+    UPDATE t 
       SET t.hjje = s.hjje
       FROM uf_saleorderdetails_dt2 t 
       LEFT JOIN (SELECT mainid,  cplb, SUM(je) hjje 
