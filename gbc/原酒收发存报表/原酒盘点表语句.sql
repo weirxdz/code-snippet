@@ -7,7 +7,7 @@ with details AS (
  select distinct b.ID ,b.BILLCODE ,b.DDATE AS DDATE,b.JARSCODE , h.WINECODE ,
  COALESCE(b.QUANTITY_IN,0) QUANTITY_IN,COALESCE(b.AQUANTITY_IN,0) AQUANTITY_IN,COALESCE(b.QUANTITY_OUT,0) QUANTITY_OUT,COALESCE(b.AQUANTITY_OUT,0) AQUANTITY_OUT
   from fr_rw_jars_balance_b b 
-  left join fr_rw_jars_balance_h h on b.ID = h.ID and  h.dr = 0
+  inner join fr_rw_jars_balance_h h on b.ID = h.ID and  h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where b.BILLCODE = 'QC' and B.DR = 0 
    and jar.cwhcode<>'8888'
@@ -20,7 +20,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   b.PRODUCTCODE WINECODE,
   COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
   from fr_rw_rds_arrivalvouch_b b
-  left join fr_rw_rds_arrivalvouch_h h on b.ID = h.ID  and  h.dr = 0
+  inner join fr_rw_rds_arrivalvouch_h h on b.ID = h.ID  and  h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -32,7 +32,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   b.PRODUCTCODE WINECODE,
   COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
   from fr_rw_rds_productin_b  b
-  left join fr_rw_rds_productin_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_productin_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -43,7 +43,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,
   b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
   from fr_rw_rds_othersin_b  b
-  left join fr_rw_rds_othersin_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_othersin_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -53,7 +53,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   -- 查询截至日期之前的内部其他入库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_IN,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_IN,0 QUANTITY_OUT,0 AQUANTITY_OUT
   from fr_rw_rds_frin_b  b
-  left join fr_rw_rds_frin_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_frin_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -63,7 +63,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   -- 查询截至日期之前的材料出库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,0 QUANTITY_IN,0 AQUANTITY_IN,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_OUT,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_OUT
   from fr_rw_rds_materialout_b  b
-  left join fr_rw_rds_materialout_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_materialout_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -74,7 +74,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   -- 查询截至日期之前的其他出库单
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,0 QUANTITY_IN,0 AQUANTITY_IN,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_OUT,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_OUT
   from fr_rw_rds_othersout_b  b
-  left join fr_rw_rds_othersout_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_othersout_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 
@@ -84,7 +84,7 @@ left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
    
   select b.AUTOID ID ,b.ID billcode,b.DDATE  AS DDATE,b.JARSCODE ,b.PRODUCTCODE WINECODE,0 QUANTITY_IN,0 AQUANTITY_IN,COALESCE(b.CONVERT_65_WEIGHT ,0) QUANTITY_OUT,COALESCE(b.ACTUAL_WEIGHT ,0) AQUANTITY_OUT
   from fr_rw_rds_frout_b  b
-  left join fr_rw_rds_frout_h h on b.ID = h.ID  and h.dr = 0
+  inner join fr_rw_rds_frout_h h on b.ID = h.ID  and h.dr = 0
 left join fr_rw_wine_jars jar on b.jarscode = jar.ccode
   where B.DR = 0 
     AND b.DDATE <=  '${v_end_date}' 

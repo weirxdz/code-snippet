@@ -1,0 +1,103 @@
+\n(储运)
+\n(质检)
+\n(物流)
+\n(计划)
+
+
+t&~f9Q$BZl
+
+@|RihKGu@N5v
+
+
+blog/VEtAVu3O
+
+
+
+VEtAVu3OQ$BZl
+
+mysqld --initialize --console
+连接特定的 DNS 后缀: 
+描述: Broadcom NetXtreme Gigabit Ethernet
+物理地址: ‎20-88-10-CA-42-54
+已启用 DHCP: 否
+IPv4 地址: 192.168.1.83
+IPv4 子网掩码: 255.255.255.0
+IPv4 默认网关: 192.168.1.1
+IPv4 DNS 服务器: 202.102.128.68
+IPv4 WINS 服务器: 
+已启用 NetBIOS over Tcpip: 是
+连接-本地 IPv6 地址: fe80::8c80:2a0a:522d:4f76%4
+IPv6 默认网关: 
+IPv6 DNS 服务器: 
+
+1234qwer
+
+
+MySQL的frm文件与ibdata1 文件可以互相转换吗
+
+
+AND h.WINECODE IN '${v_inventory_list}'
+
+${if(len(v_inventory_list)==0,"", AND h.WINECODE IN '" + v_inventory_list + "'")}
+
+
+http://localhost:8090/eye-admin/login
+
+
+服务器上MySQL8 的root 密码 Ms)#6yU7FtNF（已改）
+VEtAVu3OQ$BZl
+
+
+q8f&`cQvJOY@
+
+
+VEtAVu3OQ$BZl
+
+q8f&`cQvJOY@
+
+
+todesk密码 VEtAVu3OQ$BZl
+
+
+sc create MySQL binPath= "D:\MySQL\MySQL Server 5.5\bin\mysqld.exe --install" start= auto
+
+
+mysql -u root -pVEtAVu3OQ$BZl a8v5_ent < D:\Seeyon\autobackup\a8v5_2024-08-06_20-41-56.sql
+
+
+OA服务器上同步服务
+http://127.0.0.1:8090/eye-admin/login
+admin
+4q2&,a$,~)Q'}F6
+
+ 
+138****8215邀请您进行远程控制
+ToDesk设备代码:915 188 265
+临时密码:6wc9irc7
+点击链接直接进行远程控制：
+https://wechat.todesk.com/invite-page?id=coLeIn5pAGe0zoqsSrZLl
+
+@|RihKGu@N5v
+t&~f9Q$BZl
+VEtAVu3OQ$BZl
+
+Lr25LKMNPDqn7JE9tuUQ
+
+连接特定的 DNS 后缀: 
+描述: Broadcom NetXtreme Gigabit Ethernet
+物理地址: ‎20-04-0F-F1-69-70
+已启用 DHCP: 否
+IPv4 地址: 192.168.1.237
+IPv4 子网掩码: 255.255.255.0
+IPv4 默认网关: 192.168.1.1
+IPv4 DNS 服务器: 202.102.128.68
+IPv4 WINS 服务器: 
+已启用 NetBIOS over Tcpip: 是
+连接-本地 IPv6 地址: fe80::813c:a2fb:b4dc:d28f%11
+IPv6 默认网关: 
+IPv6 DNS 服务器: 
+
+
+950D541A38022F07
+
+9u44

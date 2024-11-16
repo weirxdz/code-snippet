@@ -1,0 +1,137 @@
+                   //查询销售组织的返利期间和标志
+                    string bflag="", itemflag="";
+                    string StartDate = "", EndDate = "";
+                    //todo 需要加 distinct 限定，有可能会返回两行
+                    string strsql = "SELECT rflag,Rebate_Exec_StartDate,Rebate_Exec_EndDate FROM v_rs_org WHERE v_rs_org.orgname ='" + cdefine14 + "'";
+                    sqladp = new SqlDataAdapter(strsql, ufConn);
+                    DataTable sqldt = new DataTable();
+                    sqladp.Fill(sqldt);
+                    if (sqldt.Rows.Count >0)
+                    {
+                        bflag =sqldt.Rows[0]["rflag"].ToString().ToString();
+                        StartDate = sqldt.Rows[0]["Rebate_Exec_StartDate"].ToString();
+                        EndDate = sqldt.Rows[0]["Rebate_Exec_EndDate"].ToString();
+                        if (string.IsNullOrEmpty(StartDate) || string.IsNullOrEmpty(EndDate))
+                        {
+                            MessageBox.Show("销售公司返利执行期间维护有误，请检查！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        if (Convert.ToDateTime(vouchdate) >= Convert.ToDateTime(StartDate) && Convert.ToDateTime(vouchdate) <= Convert.ToDateTime(EndDate))
+                        {
+                            MessageBox.Show("单据日期不在返利执行期间，请检查", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return; 
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("销售公司不在执行返利的组织范围，请检查!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; 
+                    }
+                    //查询销售项目是否执行返利
+                    strsql = "SELECT Rebate_flage FROM v_rs_fitemss_xs WHERE v_rs_fitemss_xs.citemcode ='" + cdefine11 + "'";
+                    sqladp = new SqlDataAdapter(strsql, ufConn);
+                    sqldt = new DataTable();
+                    sqladp.Fill(sqldt);
+                    if (sqldt.Rows.Count > 0)
+                    {
+                        itemflag = sqldt.Rows[0]["Rebate_flage"].ToString();
+                    }
+                    if (bflag=="Y" && itemflag=="Y" && Convert.ToDateTime(vouchdate) >= Convert.ToDateTime(StartDate) && Convert.ToDateTime(vouchdate) <= Convert.ToDateTime(EndDate))
+                    {
+                        //查询表体存货所属产品系列, plname 的值可能为空，或者是 超轻板、一体板 中的一种或两种都有
+                        //v_RS_ProductLine对照表
+                        strsql = "SELECT distinct plname FROM v_RS_ProductLine WHERE cinvcode IN (SELECT DISTINCT cinvcode FROM SaleBillVouch sb join SaleBillVouchs sbs on sb.SBVID=sbs.SBVID where sb.cSBVCode = '" + cSBVCode + "')";
+                        sqladp = new SqlDataAdapter(strsql, ufConn);
+                        sqldt = new DataTable();
+                        sqladp.Fill(sqldt);
+                        for (int i = 0; i < sqldt.Rows.Count; i++)
+                        {
+                            // 查询返利余额
+                            decimal Rebates = 0, ipercentage=0,flsum=0;
+                            string plname = sqldt.Rows[i]["plname"].ToString();//产品系列
+                            strsql = "SELECT t.RebatesBalance FROM v_RS_RebateBalances t WHERE t.orgname ='" + cdefine14 + "' AND productlinename = '" + plname + "'";
+                            sqladp = new SqlDataAdapter(strsql, ufConn);
+                            DataTable sqldt1 = new DataTable();
+                            sqladp.Fill(sqldt1);
+                            if (sqldt1.Rows.Count>0)
+                            {
+                                Rebates =Convert.ToDecimal(sqldt1.Rows[0]["RebatesBalance"]);
+                            }
+                            else
+                            {
+                                MessageBox.Show("无返利余额，请检查!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return; 
+                            }
+                            //返利计算比例
+                            strsql = "SELECT ipercentage FROM v_rs_Rebate_percentage WHERE orgname ='" + cdefine14 + "' AND productlinename = '" + plname + "'";
+                            sqladp = new SqlDataAdapter(strsql, ufConn);
+                            sqldt1 = new DataTable();
+                            sqladp.Fill(sqldt1);
+                            if (sqldt1.Rows.Count > 0)
+                            {
+                                ipercentage = Convert.ToDecimal(sqldt1.Rows[0]["ipercentage"]);
+                            }
+                            //获得返利金额，计算返利金额= 发票数量*返利单价*返利计算比例 计算返利金额
+                            strsql = "select sum(iQuantity * isnull(inv.cInvDefine14,0) * " + ipercentage + ") flsum FROM SaleBillVouch sb join SaleBillVouchs sbs on sb.SBVID=sbs.SBVID join inventory inv on sbs.cinvcode=inv.cinvcode   where  sbs.cinvcode in (SELECT distinct cinvcode FROM v_RS_ProductLine where plname='"+plname+"') and  sb.cSBVCode = '" + cSBVCode + "'";
+                            sqladp = new SqlDataAdapter(strsql, ufConn);
+                            sqldt1 = new DataTable();
+                            sqladp.Fill(sqldt1);
+                            if (sqldt1.Rows.Count > 0)
+                            {
+                                flsum = Convert.ToDecimal(sqldt1.Rows[0]["flsum"]);
+                            }
+                            //循环表体行
+                            strsql = "select Autoid,isnull(inv.cInvDefine14,0) flprice,cinvcode,iquantity*iTaxUnitPrice*0.3 flamount FROM SaleBillVouch sb join SaleBillVouchs sbs on sb.SBVID=sbs.SBVID join inventory inv on sbs.cinvcode=inv.cinvcode   where  sbs.cinvcode in (SELECT distinct cinvcode FROM v_RS_ProductLine where plname='" + plname + "') and  sb.cSBVCode = '" + cSBVCode + "'";
+                            sqladp = new SqlDataAdapter(strsql, ufConn);
+                            sqldt1 = new DataTable();
+                            sqladp.Fill(sqldt1);
+                            //返利余额 > 1 ,查询出单据某一产品系列返利金额和当前返利余额后，逐行计算，
+                            decimal flamount = 0;
+                            int k=0;
+                            while (flsum>0 && Rebates > 1 && k<sqldt1.Rows.Count)
+                            {
+                                // 行返利金额 = 行发票数量 * 行发票含税单价 * 0.3 
+                                //返利单价
+                                string autoid = sqldt1.Rows[k]["autoid"].ToString();
+                                string invcode = sqldt1.Rows[k]["cinvcode"].ToString();
+                                string flprice = sqldt1.Rows[k]["flprice"].ToString();
+                                flamount =Convert.ToDecimal(sqldt1.Rows[i]["flamount"].ToString());
+                                if (flprice == "0")
+                                {
+                                    MessageBox.Show("存货" + invcode + "的返利单价没有维护，请检查!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                                //行返利金额 = MIN(返利金额,返利余额,行返利金额)
+                                flamount =Math.Min(Math.Min(flsum, Rebates),flamount);
+                                //返利金额 = 返利金额 - 行返利金额
+                                //返利余额 = 返利余额 - 行返利金额
+                                flsum = flsum - flamount;
+                                Rebates = Rebates - flamount;
+                                //发票表体自定义项 cDefine23 和 cDefine24 同时非空时，点击按钮 ，不执行计算，直接报错 '此发票已经执行过返利计算，请检查！'；
+                                strsql = "update sbs set cDefine23 = iTaxUnitPrice,cDefine24 =round(" + flamount + "/iquantity,6) FROM SaleBillVouch sb join SaleBillVouchs sbs on sb.SBVID=sbs.SBVID  join inventory inv on sbs.cinvcode=inv.cinvcode   where  sbs.cinvcode='" + invcode + "' and  sb.cSBVCode = '" + cSBVCode + "' and autoid='" + autoid + "'";
+                                sqlcomm = new SqlCommand(strsql, ufConn);
+                                sqlcomm.ExecuteNonQuery();
+                                k += 1;
+                                //返利余额 >= 返利金额,直接计算调整单价即可，cDefine24 记录调整单价 ，cDefine23 记录原含税单价 iTaxUnitPrice 
+                                //if (Rebates>=flsum)
+                                //{
+                                //    //已经计算过的发票，再次计算的时候不能执行，可以是 发票表体自定义项 cDefine23 和 cDefine24 同时非空时，点击按钮 ，不执行计算，直接报错 '此发票已经执行过返利计算，请检查！'；                                  
+
+                                //}
+                                //else
+                                //{
+                                //     //需要先计算返利计算系数，然后再计算调整单价；
+                                //    //返利计算系数为 返利余额 / 返利金额
+                                //    strsql = "update sbs set cDefine23 = iTaxUnitPrice,cDefine24 = iTaxUnitPrice - isnull(inv.cInvDefine14,0) * " + ipercentage + "*" + Rebates + "/" + flsum + "  FROM SaleBillVouch sb join SaleBillVouchs sbs on sb.SBVID=sbs.SBVID join inventory inv on sbs.cinvcode=inv.cinvcode   where  sbs.cinvcode='" + invcode + "' and  sb.cSBVCode = '" + cSBVCode + "'";
+                                //    sqlcomm = new SqlCommand(strsql, ufConn);
+                                //    sqlcomm.ExecuteNonQuery(); 
+                                //}
+                            }
+                        }
+                    }
+                    MessageBox.Show("计算完成","提示", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                }
+                else
+                {
+                    MessageBox.Show("无法获得相关信息", "执行返利", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }

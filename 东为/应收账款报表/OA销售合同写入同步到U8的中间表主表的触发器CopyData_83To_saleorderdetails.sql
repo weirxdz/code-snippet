@@ -1,4 +1,4 @@
--- OA销售合同写入同步到U8的中间表主表的触发器
+-- OA销售合同写入同步到U8的中间表主表的触发器 
 ALTER TRIGGER [dbo].[CopyData_83To_saleorderdetails]
 ON [dbo].[formtable_main_83]
 AFTER UPDATE
@@ -103,7 +103,7 @@ BEGIN
             WHERE d.mainid = @oamainid
             UNION all
             SELECT d.mainid,d.id, d.cplb,d.fktj, COALESCE(d.yqts,0) yqts, COALESCE(d.ywbl,0) ywbl, COALESCE(d.fkbl,0) fkbl, COALESCE(d.fkje,0) fkje, d.sl, d.bz, 0,m.name ,''
-            FROM formtable_main_83_dt3 d
+            FROM formtable_main_83_dt5 d
             LEFT JOIN mode_selectitempagedetail m ON d.fktj = m.disorder AND m.mainid = 25
             WHERE d.mainid = @oamainid
             UNION all

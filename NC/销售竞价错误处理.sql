@@ -1,4 +1,22 @@
--- AS2024042400002780
+-- AS2024092600003264
+select g.rowid,s.name,g.*
+from purp_supquotelog g
+left join purp_askbill h on h.pk_askbill=g.pk_askbill
+left join bd_supplier s on g.pk_supplier = s.pk_supplier
+where h.vbillcode='AS2024092700003264'
+order by g.pk_supplier
+for update
+  ;-- AS20240492600003261
+select g.rowid,s.name,g.*
+from purp_supquotelog g
+left join purp_askbill h on h.pk_askbill=g.pk_askbill
+left join bd_supplier s on g.pk_supplier = s.pk_supplier
+where h.vbillcode='AS2024092600003261'
+order by g.pk_supplier
+for update
+  ;
+  
+  -- AS2024042400002780
 select g.rowid,s.name,g.*
 from purp_supquotelog g
 left join purp_askbill h on h.pk_askbill=g.pk_askbill

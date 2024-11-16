@@ -1,0 +1,677 @@
+{
+    "errcode": 0,
+    "errmsg": "ok",
+    "template_names": [
+        {
+            "text": "付款申请-U8",
+            "lang": "zh_CN"
+        },
+        {
+            "text": "",
+            "lang": "en"
+        }
+    ],
+    "template_content": {
+        "controls": [
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1703839778738",
+                    "title": [
+                        {
+                            "text": "申请日期",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1703839819711",
+                    "title": [
+                        {
+                            "text": "申请部门",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1703839828934",
+                    "title": [
+                        {
+                            "text": "申请人",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1703839846899",
+                    "title": [
+                        {
+                            "text": "制单人",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1705647226597",
+                    "title": [
+                        {
+                            "text": "供应商名称",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1703839837624",
+                    "title": [
+                        {
+                            "text": "备注",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "File",
+                    "id": "File-1703839868409",
+                    "title": [
+                        {
+                            "text": "附件",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "file": {
+                        "is_only_photo": 0
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Table",
+                    "id": "Table-1703839876695",
+                    "title": [
+                        {
+                            "text": "明细",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "table": {
+                        "children": [
+                            {
+                                "property": {
+                                    "control": "Text",
+                                    "id": "Text-1703839882761",
+                                    "title": [
+                                        {
+                                            "text": "物料编码",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "placeholder": [
+                                        {
+                                            "text": "",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "require": 0,
+                                    "un_print": 0,
+                                    "un_replace": 0,
+                                    "display": 1
+                                }
+                            },
+                            {
+                                "property": {
+                                    "control": "Text",
+                                    "id": "Text-1703839904112",
+                                    "title": [
+                                        {
+                                            "text": "物料名称",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "placeholder": [
+                                        {
+                                            "text": "",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "require": 0,
+                                    "un_print": 0,
+                                    "un_replace": 0,
+                                    "display": 1
+                                }
+                            },
+                            {
+                                "property": {
+                                    "control": "Text",
+                                    "id": "Text-1703839911790",
+                                    "title": [
+                                        {
+                                            "text": "规格",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "placeholder": [
+                                        {
+                                            "text": "",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "require": 0,
+                                    "un_print": 0,
+                                    "un_replace": 0,
+                                    "display": 1
+                                }
+                            },
+                            {
+                                "property": {
+                                    "control": "Text",
+                                    "id": "Text-1703839924232",
+                                    "title": [
+                                        {
+                                            "text": "申请金额",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "placeholder": [
+                                        {
+                                            "text": "",
+                                            "lang": "zh_CN"
+                                        }
+                                    ],
+                                    "require": 0,
+                                    "un_print": 0,
+                                    "un_replace": 0,
+                                    "display": 1
+                                }
+                            }
+                        ],
+                        "stat_field": [
+
+                        ],
+                        "sum_field": [
+
+                        ],
+                        "print_format": 0
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Contact",
+                    "id": "Contact-1704178529426",
+                    "title": [
+                        {
+                            "text": "制单人账号",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 1,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "contact": {
+                        "type": "single",
+                        "mode": "user"
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Contact",
+                    "id": "Contact-1704346470248",
+                    "title": [
+                        {
+                            "text": "付款审批人",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 1,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "contact": {
+                        "type": "single",
+                        "mode": "user"
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Contact",
+                    "id": "Contact-1704763991050",
+                    "title": [
+                        {
+                            "text": "付款申请人",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 1,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "contact": {
+                        "type": "single",
+                        "mode": "user"
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Selector",
+                    "id": "Selector-1712624639923",
+                    "title": [
+                        {
+                            "text": "所属公司",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 1,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "selector": {
+                        "type": "single",
+                        "options": [
+                            {
+                                "key": "option-1712624639923",
+                                "value": [
+                                    {
+                                        "text": "山东迈凯诺",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1731050095878",
+                                "value": [
+                                    {
+                                        "text": "精筑再生资源",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624639924",
+                                "value": [
+                                    {
+                                        "text": "捷顺",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624778291",
+                                "value": [
+                                    {
+                                        "text": "启源",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624784365",
+                                "value": [
+                                    {
+                                        "text": "智凯达",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624812957",
+                                "value": [
+                                    {
+                                        "text": "华筑",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624825621",
+                                "value": [
+                                    {
+                                        "text": "防火",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1731034913150",
+                                "value": [
+                                    {
+                                        "text": "深圳防火",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624832445",
+                                "value": [
+                                    {
+                                        "text": "耐火",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1725949950875",
+                                "value": [
+                                    {
+                                        "text": "四川耐火",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624839413",
+                                "value": [
+                                    {
+                                        "text": "众诺",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624846301",
+                                "value": [
+                                    {
+                                        "text": "迈凯诺江浙分公司",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624866525",
+                                "value": [
+                                    {
+                                        "text": "西部",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624879501",
+                                "value": [
+                                    {
+                                        "text": "山西浩阳",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624881013",
+                                "value": [
+                                    {
+                                        "text": "其他二",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1712624883174",
+                                "value": [
+                                    {
+                                        "text": "其他三",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            }
+                        ],
+                        "op_relations": [
+
+                        ],
+                        "external_option": {
+                            "use_external_option": false,
+                            "external_url": ""
+                        }
+                    }
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1726645426282",
+                    "title": [
+                        {
+                            "text": "供应商银行",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Text",
+                    "id": "Text-1726645429442",
+                    "title": [
+                        {
+                            "text": "供应商账号",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                }
+            },
+            {
+                "property": {
+                    "control": "Selector",
+                    "id": "Selector-1726645432654",
+                    "title": [
+                        {
+                            "text": "供应商类型",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "placeholder": [
+                        {
+                            "text": "",
+                            "lang": "zh_CN"
+                        }
+                    ],
+                    "require": 0,
+                    "un_print": 0,
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
+                },
+                "config": {
+                    "selector": {
+                        "type": "single",
+                        "options": [
+                            {
+                                "key": "option-1726645432655",
+                                "value": [
+                                    {
+                                        "text": "Y",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "option-1726645432656",
+                                "value": [
+                                    {
+                                        "text": "N",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            }
+                        ],
+                        "op_relations": [
+
+                        ],
+                        "external_option": {
+                            "use_external_option": false,
+                            "external_url": ""
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

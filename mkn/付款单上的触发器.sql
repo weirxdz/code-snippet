@@ -1,4 +1,4 @@
-mssql数据库，在 Ap_CloseBill 表上加一个触发器。如果 cDefine8 = '是',则 cDefine11 不能为空；且需要根据 cDefine11 的值 到 fitemss01 中查询 citemcode 值 等于 cDefine11 的记录的 citemname 的值，赋值给 cDefine12
+-- mssql数据库，在 Ap_CloseBill 表上加一个触发器。如果 cDefine8 = '是',则 cDefine11 不能为空；且需要根据 cDefine11 的值 到 fitemss01 中查询 citemcode 值 等于 cDefine11 的记录的 citemname 的值，赋值给 cDefine12
 
 CREATE TRIGGER trg_ValidateAndAssignItemName
 ON Ap_CloseBill
@@ -36,4 +36,4 @@ BEGIN
     END
 END
 
-把销售出库单备注带入到付款申请单表体
+-- 把销售出库单备注带入到付款申请单表体

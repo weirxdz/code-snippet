@@ -1,0 +1,9 @@
+rem auther:www.yumi-info.com
+rem date:20171222
+rem ******MySQL backup start********
+@echo off
+forfiles /p "D:\Seeyon\autobackup" /m a8v5_*.sql -d -30 /c "cmd /c del /f @path"
+set "Ymd=%date:~0,4%%date:~5,2%%date:~8,2%0%time:~1,1%%time:~3,2%%time:~6,2%"
+"D:\MySQL\MySQL Server 5.5\bin\mysqldump" --opt --single-transaction=TRUE --user=root --password=root --host=127.0.0.1 --protocol=tcp --port=3306 --default-character-set=utf8 --single-transaction=TRUE --routines --events "a8v5" > "D:\Seeyon\autobackup\a8v5_%Ymd%.sql"
+@echo on
+rem ******MySQL backup end********

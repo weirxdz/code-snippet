@@ -1,0 +1,15 @@
+# 定义连接参数
+$serverName = "WINServer" # 例如: DESKTOP-1234\SQLEXPRESS
+$databaseName = "UFDATA_100_2024"
+$userName = "sa"
+$password = "mkn1234!@#$"
+$securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
+
+# 创建SQL Server的凭证对象
+$credential = New-Object System.Management.Automation.PSCredential($userName, $securePassword)
+
+# 要执行的SQL命令
+$sqlCommand = "EXEC UpdateSoDetailsItemCode"
+
+# 执行SQL命令
+Invoke-Sqlcmd -Query $sqlCommand -ServerInstance $serverName -Database $databaseName -Credential $credential

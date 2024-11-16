@@ -406,9 +406,11 @@
                             "lang": "zh_CN"
                         }
                     ],
-                    "require": 0,
+                    "require": 1,
                     "un_print": 0,
-                    "inner_id": ""
+                    "inner_id": "",
+                    "un_replace": 0,
+                    "display": 1
                 },
                 "config": {
                     "selector": {
@@ -478,6 +480,15 @@
                                 ]
                             },
                             {
+                                "key": "option-1725949950875",
+                                "value": [
+                                    {
+                                        "text": "四川耐火",
+                                        "lang": "zh_CN"
+                                    }
+                                ]
+                            },
+                            {
                                 "key": "option-1712624839413",
                                 "value": [
                                     {
@@ -508,7 +519,7 @@
                                 "key": "option-1712624879501",
                                 "value": [
                                     {
-                                        "text": "其他一",
+                                        "text": "山西浩阳",
                                         "lang": "zh_CN"
                                     }
                                 ]
