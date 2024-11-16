@@ -175,21 +175,21 @@ BEGIN
                         select @strChildId,@strFatherId,@productcode,@actual_weight,@changerate,@convert_65_weight,@assunitcode,
                           0,1,@lsposnr,@cBatch,null
                           --,                '||st09|'+@strChildId+'|'+ltrim(str(@lsposnr))
-                                                set @iPda=1
-                        while  @iPda=1
-                        begin   
-                          select @idsub=id from  rdrecords09sub  where id=@strsubId
-                          if  isnull(@strlsId,0)=0 begin set @strlsId=0 end
-                          if (ltrim(str(@strlsId)) <>@strChildId)
-                          begin  set @iPda=2 end
-                          else
-                          begin
-                            set @idsub=@idsub+1
-                            set @strsubId=SUBSTRING('1000000000',0,11 - len(ltrim(str(@idsub))))+ltrim(str(@idsub))
-                          end
-                        end  
-                        insert into RdRecords09sub(autoid,ID,iBG_Ctrl,iBGSTSum)
-                          select @strChildId,@strsubId,0,0
+--                                                set @iPda=1
+--                        while  @iPda=1
+--                        begin   
+--                          select @idsub=id from  rdrecords09sub  where id=@strsubId
+--                          if  isnull(@strlsId,0)=0 begin set @strlsId=0 end
+--                          if (ltrim(str(@strlsId)) <>@strChildId)
+--                          begin  set @iPda=2 end
+--                          else
+--                          begin
+--                            set @idsub=@idsub+1
+--                            set @strsubId=SUBSTRING('1000000000',0,11 - len(ltrim(str(@idsub))))+ltrim(str(@idsub))
+--                          end
+--                        end  
+--                        insert into RdRecords09sub(autoid,ID,iBG_Ctrl,iBGSTSum)
+--                          select @strChildId,@strsubId,0,0
                         --有单据扩展自定义项插入rdrecords01_ExtraDefine
                         --存货有货位需要插入存货货位记录表
 
@@ -328,7 +328,7 @@ BEGIN
                         begin
                           --更新数据库
                           delete RdRecords09 where autoid=@u8autoid
-                          delete RdRecords09sub where id=@u8autoid
+                          --delete RdRecords09sub where id=@u8autoid
                           select @itemid=id from SCM_Item where cInvCode=@productcode 
                           if (isnull(@itemid,'')='')
                             begin
