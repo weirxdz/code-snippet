@@ -61,7 +61,7 @@ WHERE t.cItemCode IS NULL --AND b.cItemCode IS NOT NULL
 --inner JOIN SaleBillVouchs b ON t.OutID = b.AutoID AND t.iEnID = b.SBVID 
 --WHERE t.cItemCode IS NULL AND b.cItemCode IS NOT NULL 
 ;
-SELECT * FROM IA_EnSubsidiary WHERE cItem_class = '01'
+SELECT * FROM IA_EnSubsidiary WHERE cItem_class = '00'
 ;
 SELECT * FROM IA_Subsidiary WHERE cItem_class = '01';
 --UPDATE IA_EnSubsidiary SET cItem_class = '00' WHERE cItem_class = '01'
