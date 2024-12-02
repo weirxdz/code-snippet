@@ -30,7 +30,7 @@ LEFT JOIN XSHBMDY AS DS ON H.CDEPTCODE = DS.BMBM
 WHERE 1=1
 AND ISNULL(H.CDEFINE9,'') <> '押金'
 -- AND (H.COPERATOR = '张超' AND h.cCancelNo is NULL and H.COPERATOR = '宋现涛' AND h.cCancelNo is NULL and H.COPERATOR = '李洪波' AND h.cCancelNo is NULL or h.cCancelNo is not NULL)
-AND (h.cCancelNo is NULL and H.COPERATOR in ('张超','宋现涛','李洪波'-- 增加周志华做的收款单 20241202
+AND (h.cCancelNo is NULL and H.COPERATOR in ('张超','宋现涛','李洪波','周志华') or h.cCancelNo is not NULL) -- 增加周志华做的收款单 20241202
 AND LEFT(H.CSSCODE,1) IN (1,2)
 AND (h.vt_id = '8055' and h.cvouchtype = 49 )-- 20241118 拆分蓝字单据和红字单据
 AND LEFT(CONVERT(NVARCHAR,H.DVOUCHDATE,120),10)>= '${开始日期}'
