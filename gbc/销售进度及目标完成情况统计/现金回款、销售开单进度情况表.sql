@@ -124,7 +124,7 @@ BEGIN
 			WHERE ISNULL(H.CDEFINE9,'') <> '押金' /*只取非押金类的记录*/
 				AND LEFT(H.CSSCODE,1) IN (1,2)/*结算方式，只取现金结算和银行结算的*/
 				-- AND (H.COPERATOR = '张超' AND h.cCancelNo is NULL or H.COPERATOR = '宋现涛' AND h.cCancelNo is NULL or h.cCancelNo is not NULL)-- 20230427 现金回款增加宋现涛
-        AND (h.cCancelNo is NULL and H.COPERATOR in ('张超','宋现涛','李洪波') or h.cCancelNo is not NULL)
+        AND (h.cCancelNo is NULL and H.COPERATOR in ('张超','宋现涛','李洪波','周志华') or h.cCancelNo is not NULL) -- 增加周志华做的收款单 20241202
 				AND left(ISNULL(sbvb.cInvCode, '5'),1) = '5'/*如果关联发票，只取存货编码以5开头的记录*/
 				AND B.CCUSVEN not in( '010124004'/*市场部（古）*/, '040000717'/*四川圆明园*/)
 				and (CONVERT(varchar(100), H.DVOUCHDATE, 23) >= @sdate_y_0 AND CONVERT(varchar(100), H.DVOUCHDATE, 23) <= @edate_0
